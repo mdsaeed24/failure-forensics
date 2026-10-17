@@ -25,7 +25,14 @@ from forensics.config import ModelCallSettings
 from forensics.documents.fact_sheets import FactSheet
 from forensics.llm.client import LLMClient
 from forensics.pipeline.models import DOCUMENT_TYPE_DEFINITIONS, DocumentType
-from forensics.textscan import find_dates, find_money, format_amount, format_date, line_of
+from forensics.textscan import (
+    find_dates,
+    find_money,
+    format_amount,
+    format_date,
+    line_of,
+    same_name,
+)
 
 
 class Issue(BaseModel):
@@ -170,7 +177,7 @@ def compare_audit(sheet: FactSheet, report: AuditOutput) -> list[Issue]:
         issues.append(_error("doc_type", f'reads as "{report.doc_type}", not "{sheet.doc_type}": '
                              f"{report.doc_type_reason}"))
     for name in report.names:
-        if not any(_same_name(name, p.name) for p in sheet.parties):
+        if not any(same_name(name, p.name) for p in sheet.parties):
             issues.append(_error("extra_name", f'"{name}" is named but is not a party in the '
                                  "fact sheet"))
     sheet_dates = {d.date.isoformat() for d in sheet.dates}
@@ -198,16 +205,6 @@ async def verify(
         passed=not any(i.severity == "error" for i in issues),
         issues=issues, found=found, audit=report,
     )
-
-
-def _same_name(a: str, b: str) -> bool:
-    """Lenient on purpose: "Harbor Lane Printing" matches "Harbor Lane Printing Ltd."."""
-    a, b = _norm(a), _norm(b)
-    return a == b or a in b or b in a
-
-
-def _norm(name: str) -> str:
-    return " ".join(re.sub(r"[^\w\s]", " ", name.casefold()).split())
 
 
 def _error(check: str, message: str) -> Issue:

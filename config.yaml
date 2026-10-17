@@ -29,6 +29,13 @@ generation:
     temperature: 0.0
     max_output_tokens: 8000
 
+# Phase 4: root-cause analysis. The judge model is llm.judge_model.
+analysis:
+  judge_thinking: true                # careful reading is the whole job
+  judge_max_output_tokens: 8000
+  fail_at_or_below: 2                 # judge score (1-5) at which a step counts as failed
+  suspect_at_or_below: 3              # ...and as a suspect, used only if no step clearly failed
+
 # USD per 1M tokens. PLACEHOLDERS: check https://api-docs.deepseek.com/quick_start/pricing
 # and update once the model IDs are confirmed. A model missing here gets cost = None, not 0.
 prices:

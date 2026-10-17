@@ -151,3 +151,29 @@ def format_date(value: dt.date) -> str:
 
 def line_of(text: str, index: int) -> int:
     return text.count("\n", 0, index) + 1
+
+
+def normalize_name(name: str) -> str:
+    """Case, punctuation and spacing don't matter: "Harbor Lane Printing Ltd." ~ "harbor lane printing ltd"."""
+    return " ".join(re.sub(r"[^\w\s]", " ", name.casefold()).split())
+
+
+def same_name(a: str, b: str) -> bool:
+    """Equal, or one is a whole-word part of the other: "Acme" ~ "Acme Ltd", but "Lim" !~ "Climate"."""
+    a, b = normalize_name(a), normalize_name(b)
+    return bool(a and b) and (f" {a} " in f" {b} " or f" {b} " in f" {a} ")
+
+
+def name_in_text(name: str, text: str) -> bool:
+    n = normalize_name(name)
+    return bool(n) and f" {n} " in f" {normalize_name(text)} "
+
+
+def parse_iso_date(value: str) -> dt.date | None:
+    """Strict YYYY-MM-DD, as the pipeline is asked to produce."""
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return None
+    try:
+        return dt.date.fromisoformat(value)
+    except ValueError:
+        return None

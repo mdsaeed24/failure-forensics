@@ -58,6 +58,7 @@ Failure Forensics/
 │   ├── run_pipeline.py        run docs through the pipeline (--limit)
 │   ├── check_models.py        verify config.yaml model IDs against DeepSeek /models
 │   ├── list_traces.py         browse traces: list, filter, per-step signals (Phase 3)
+│   ├── analyze_trace.py       score a trace vs ground truth; if bad, find the root cause (Phase 4)
 │   ├── generate_documents.py  fact sheet → document → automatic fact verification
 │   ├── review_documents.py    side-by-side doc vs fact sheet, approve/reject
 │   ├── evaluate_diagnosis.py  clean + injected runs → accuracy report
@@ -95,7 +96,8 @@ Failure Forensics/
 │   │   │                      runner's hooks run inside the step's span
 │   │   ├── exporter.py        custom SpanExporter → JSON file + SQLite index
 │   │   └── store.py           read/query traces from SQLite + JSON
-│   ├── checks/                deterministic checks, no LLM
+│   ├── checks/                deterministic checks, no LLM; each step vs its OWN input
+│   │   ├── intake.py          was the text handed on intact?
 │   │   ├── grounding.py       does every extracted name/date/amount appear in the source?
 │   │   ├── dates.py           do extracted dates parse?
 │   │   ├── currency.py        are amounts + currency codes consistent?
@@ -103,7 +105,8 @@ Failure Forensics/
 │   ├── scoring/
 │   │   └── final_score.py     compare final result to ground truth → good / bad
 │   ├── analyzer/
-│   │   ├── taxonomy.py        the 5 failure types (enum + definitions)
+│   │   ├── taxonomy.py        the 5 failure types: hallucination, omission, wrong_value,
+│   │   │                      misclassification, format_error
 │   │   ├── judge.py           LLM judge: "is this step's output a reasonable
 │   │   │                      transformation of ITS OWN input?" (1–5 + reason)
 │   │   ├── root_cause.py      walks steps in order, picks first significant drop

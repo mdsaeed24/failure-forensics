@@ -43,6 +43,13 @@ class GenerationSettings(BaseModel):
     verifier: ModelCallSettings
 
 
+class AnalysisSettings(BaseModel):
+    judge_thinking: bool = True
+    judge_max_output_tokens: int = Field(8000, gt=0)
+    fail_at_or_below: int = Field(2, ge=1, le=5)  # judge score that means "this step failed"
+    suspect_at_or_below: int = Field(3, ge=1, le=5)  # ...and "maybe failed"
+
+
 class ModelPrice(BaseModel):
     """USD per 1M tokens."""
 
@@ -63,6 +70,7 @@ class Settings(BaseModel):
     llm: LLMSettings
     pipeline: PipelineSettings = PipelineSettings()
     generation: GenerationSettings | None = None  # only the Phase 2 scripts need it
+    analysis: AnalysisSettings = AnalysisSettings()
     prices: dict[str, ModelPrice] = {}
     paths: PathSettings = PathSettings()
     deepseek_api_key: SecretStr | None = None

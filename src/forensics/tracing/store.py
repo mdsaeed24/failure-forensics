@@ -36,6 +36,18 @@ CREATE TABLE IF NOT EXISTS traces (
 CREATE INDEX IF NOT EXISTS traces_by_doc ON traces (doc_id, started_at);
 CREATE INDEX IF NOT EXISTS traces_by_batch ON traces (batch_id);
 
+CREATE TABLE IF NOT EXISTS diagnoses (
+    trace_id         TEXT PRIMARY KEY,
+    doc_id           TEXT,
+    analyzed_at      TEXT,
+    root_cause_step  TEXT,
+    failure_type     TEXT,
+    confidence       TEXT,
+    judge_calls      INTEGER,
+    cost_usd         REAL,
+    path             TEXT
+);
+
 CREATE TABLE IF NOT EXISTS steps (
     trace_id         TEXT,
     step             TEXT,
@@ -104,6 +116,26 @@ class TraceStore:
                 [[_sql(s.get(c)) for c in _STEP_COLUMNS] for s in steps],
             )
         return path
+
+    def save_diagnosis(self, diagnosis: dict[str, Any]) -> Path:
+        """One diagnosis per trace; re-analyzing replaces it."""
+        path = self.dir / "diagnoses" / f"{diagnosis['trace_id']}.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(diagnosis, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        row = {**diagnosis, "path": str(path.relative_to(self.dir))}
+        columns = ("trace_id", "doc_id", "analyzed_at", "root_cause_step", "failure_type",
+                   "confidence", "judge_calls", "cost_usd", "path")
+        with closing(self._connect()) as conn, conn:
+            conn.execute(
+                f"INSERT OR REPLACE INTO diagnoses ({', '.join(columns)}) "
+                f"VALUES ({', '.join('?' for _ in columns)})",
+                [_sql(row.get(c)) for c in columns],
+            )
+        return path
+
+    def load_diagnosis(self, trace_id: str) -> dict[str, Any] | None:
+        path = self.dir / "diagnoses" / f"{trace_id}.json"
+        return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
 
     def list_traces(
         self, doc_id: str | None = None, status: str | None = None,
