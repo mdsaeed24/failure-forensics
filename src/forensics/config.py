@@ -61,6 +61,7 @@ class PathSettings(BaseModel):
     fact_sheets: Path = Path("data/fact_sheets.yaml")
     documents_dir: Path = Path("data/documents")
     ground_truth: Path = Path("data/ground_truth.json")
+    eval_cases: Path = Path("data/eval_cases.json")
     samples_dir: Path = Path("data/samples")
     traces_dir: Path = Path("traces")
     reports_dir: Path = Path("reports")

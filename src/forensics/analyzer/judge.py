@@ -93,14 +93,23 @@ def render_output(step_output: dict[str, Any]) -> str:
 
 async def judge_step(
     step: str, step_input: dict[str, Any], step_output: dict[str, Any],
-    llm: LLMClient, settings: Settings,
+    llm: LLMClient, settings: Settings, known_issue: str | None = None,
 ) -> tuple[JudgeVerdict, LLMCall]:
+    """`known_issue`: regression only. A problem a human confirmed on an earlier run of
+    the same document, which the judge then checks for specifically. The analyzer
+    never passes one: there it must find failures unprompted."""
     analysis: AnalysisSettings = settings.analysis
     user = (
         f"STEP: {step}\n\nTHE STEP'S JOB:\n{STEP_JOBS[step]}\n\n"
         f"INPUT THIS STEP RECEIVED:\n{render_input(step, step_input)}\n\n"
         f"OUTPUT THIS STEP PRODUCED (JSON):\n{render_output(step_output)}"
     )
+    if known_issue:
+        user += (
+            "\n\nA REVIEWER REPORTED THIS PROBLEM WITH AN EARLIER OUTPUT OF THIS STEP ON THE "
+            f"SAME DOCUMENT:\n{known_issue}\nCheck specifically whether it is present in this "
+            "output, as well as judging it as usual. If it is present, the score is at most 2."
+        )
     result = await llm.complete_json(
         system=_SYSTEM,
         user=user,

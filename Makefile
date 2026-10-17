@@ -3,7 +3,7 @@
 
 PY ?= python
 
-.PHONY: install test run check-models generate review traces analyze evaluate
+.PHONY: install test run check-models generate review traces analyze evaluate ui api regression
 
 install:
 	$(PY) -m pip install -e ".[dev]"
@@ -31,3 +31,12 @@ analyze:
 
 evaluate:
 	$(PY) scripts/evaluate_diagnosis.py --per-fault 6
+
+ui:
+	$(PY) -m streamlit run src/forensics/ui/app.py
+
+api:
+	$(PY) -m uvicorn forensics.api.main:app --port 8000
+
+regression:
+	$(PY) scripts/regression.py

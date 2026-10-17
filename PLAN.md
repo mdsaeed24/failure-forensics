@@ -123,12 +123,15 @@ Failure Forensics/
 │   │   │                      false alarms, confidence calibration
 │   │   └── report.py          writes reports/diagnosis_accuracy.md
 │   ├── feedback/
-│   │   └── eval_cases.py      confirmed flag → eval case
+│   │   ├── eval_cases.py      flag → confirm/override → eval case (one service layer;
+│   │   │                      the UI and the API both call it)
+│   │   └── regression.py      re-run a case; checks + judge told the known issue
 │   ├── api/
-│   │   └── main.py            FastAPI: flag a trace, confirm/override a diagnosis
+│   │   └── main.py            FastAPI: flag a trace, analyze, confirm/override, list cases
 │   └── ui/
-│       ├── app.py             Streamlit: trace list + trace view
-│       └── pages/             diff view, analytics
+│       ├── app.py             Streamlit entry point (st.navigation)
+│       ├── components.py      trace view, diagnosis panel, feedback forms
+│       └── pages/             traces, compare (diff view), review, analytics
 │
 └── tests/
     ├── conftest.py            FakeLLM fixture: tests NEVER call the real API

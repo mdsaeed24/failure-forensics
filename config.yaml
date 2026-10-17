@@ -50,6 +50,7 @@ paths:
   fact_sheets: data/fact_sheets.yaml
   documents_dir: data/documents       # generated *.md plus manifest.json (generation + review state)
   ground_truth: data/ground_truth.json
+  eval_cases: data/eval_cases.json      # confirmed failures (Phase 6); committed
   samples_dir: data/samples
   traces_dir: traces
   reports_dir: reports

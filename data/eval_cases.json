@@ -1,0 +1,42 @@
+[
+  {
+    "case_id": "case_001",
+    "doc_id": "rct_004",
+    "source_trace_id": "78cf233bcb465a2fefa744e8b15b7890",
+    "created_at": "2026-10-17T11:42:00.664292Z",
+    "note": "The summary says the donation amount is recorded as the receipt date: amount and date are conflated.",
+    "root_cause_step": "summarization",
+    "failure_type": "wrong_value",
+    "diagnosis_agreed": true,
+    "analyzer_said": null,
+    "status": "resolved",
+    "history": [
+      {
+        "run_at": "2026-10-17T11:42:11.716744Z",
+        "trace_id": "a7fad626779ba300c45a136ce42ac7b4",
+        "passed": true,
+        "reason": "the step now passes its checks and the judge"
+      }
+    ]
+  },
+  {
+    "case_id": "case_002",
+    "doc_id": "oth_001",
+    "source_trace_id": "4b479dc6d3cf1aff9d422eb5c32da1a3",
+    "created_at": "2026-10-17T11:42:00.701117Z",
+    "note": "\"All Staff\" was extracted as a party; it is an audience, not a person or organization. / analyzer missed it: the name is in the text, but it is not a party",
+    "root_cause_step": "extraction",
+    "failure_type": "hallucination",
+    "diagnosis_agreed": false,
+    "analyzer_said": "no failure found",
+    "status": "open",
+    "history": [
+      {
+        "run_at": "2026-10-17T11:42:11.728418Z",
+        "trace_id": "1a328c2e47e7fe94ecbd2c666aba5afb",
+        "passed": false,
+        "reason": "judge 2/5: The output includes 'All Staff' as a party, but the document uses it only as the memo's audience, not a named person or organization."
+      }
+    ]
+  }
+]
