@@ -94,9 +94,12 @@ def score_trace(trace_doc: dict[str, Any], truth: dict[str, Any]) -> FinalScore:
         for m in find_dates(summary):
             if m.value and m.value not in truth_dates:
                 add("summary", "wrong", f'the summary states "{m.surface}", which is not a true date')
-        for m in find_money(summary):
+        said_money = find_money(summary)
+        for m in said_money:
             if (m.amount, m.currency) not in truth_money:
                 add("summary", "wrong", f'the summary states "{m.surface}", which is not a true amount')
+        if truth_money and not any((m.amount, m.currency) in truth_money for m in said_money):
+            add("summary", "missing", "the summary mentions none of the document's amounts")
 
     return FinalScore(doc_id=trace_doc["doc_id"], good=not found, discrepancies=found)
 

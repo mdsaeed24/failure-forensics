@@ -149,8 +149,12 @@ def _classify(chosen: StepVerdict | None) -> tuple[FailureType | None, Literal["
         return None, "high"
     assert chosen.judge is not None
     judged = None if chosen.judge.failure_type == "none" else FailureType(chosen.judge.failure_type)
-    if chosen.step == "classification" and judged is None:
-        judged = FailureType.MISCLASSIFICATION  # the only way a label can be wrong
+    if chosen.step == "classification":
+        judged = FailureType.MISCLASSIFICATION  # the only way a valid label can be wrong
+    elif judged == FailureType.MISCLASSIFICATION:
+        # Only the classifier assigns types. A summary that describes the document as the
+        # wrong kind is making an unsupported claim.
+        judged = FailureType.HALLUCINATION
     return judged, "medium" if chosen.verdict == "failed" else "low"
 
 

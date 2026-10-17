@@ -122,6 +122,17 @@ def test_unfinished_trace_is_written_as_incomplete_on_shutdown(exporter, trace_s
     assert row["complete"] == 0 and row["doc_id"] == "unknown"  # the root's attributes were never exported
 
 
+def test_spans_outside_a_pipeline_run_are_not_stored(make_llm, trace_store):
+    from pydantic import BaseModel
+
+    class Answer(BaseModel):
+        value: int
+
+    llm, _ = make_llm({"value": 1})
+    asyncio.run(llm.complete_json(system="json", user="?", schema=Answer))  # e.g. a judge call
+    assert trace_store.list_traces() == []
+
+
 def test_trace_ids_resolve_from_a_prefix(make_llm, settings, trace_store):
     llm, _ = make_llm(EXTRACTION, CLASSIFICATION, SUMMARY)
     result = run(llm, settings)

@@ -88,10 +88,42 @@ Extracted facts (JSON):
 $facts"""
 
 
+# --- Weakened variants, used only by fault injection (Phase 5) -----------------
+# Each is a plausible prompt regression, not a sabotage: the kind of edit someone
+# might ship to "simplify" a prompt. Whether it actually breaks a given document is
+# up to the model, which is what makes these faults realistic.
+
+_EXTRACTION_MAIN_FACTS_ONLY = _EXTRACTION_SYSTEM.replace(
+    "- Include only facts stated in the document. Never guess or infer missing values.",
+    "- Keep it short: include only the main parties, the single most important date and\n"
+    "  the single most important amount. Skip anything secondary.",
+)
+_CLASSIFICATION_TITLE_ONLY = _CLASSIFICATION_SYSTEM.replace(
+    "Choose the label that matches the document's purpose, not just its title.",
+    "To be fast and consistent, classify by the document's title or first heading.",
+)
+_SUMMARIZATION_EMBELLISH = _SUMMARIZATION_SYSTEM.replace(
+    "- Use only the facts given. Do not add any name, date or amount that is not listed.",
+    "- Make the summary genuinely useful: where helpful, add the practical context a reader\n"
+    "  would expect, such as usual payment terms, typical fees or next steps.",
+)
+assert _EXTRACTION_MAIN_FACTS_ONLY != _EXTRACTION_SYSTEM
+assert _CLASSIFICATION_TITLE_ONLY != _CLASSIFICATION_SYSTEM
+assert _SUMMARIZATION_EMBELLISH != _SUMMARIZATION_SYSTEM
+
 PROMPTS: dict[str, dict[str, PromptTemplate]] = {
-    "extraction": {"default": PromptTemplate(_EXTRACTION_SYSTEM, _EXTRACTION_USER)},
-    "classification": {"default": PromptTemplate(_CLASSIFICATION_SYSTEM, _CLASSIFICATION_USER)},
-    "summarization": {"default": PromptTemplate(_SUMMARIZATION_SYSTEM, _SUMMARIZATION_USER)},
+    "extraction": {
+        "default": PromptTemplate(_EXTRACTION_SYSTEM, _EXTRACTION_USER),
+        "main_facts_only": PromptTemplate(_EXTRACTION_MAIN_FACTS_ONLY, _EXTRACTION_USER),
+    },
+    "classification": {
+        "default": PromptTemplate(_CLASSIFICATION_SYSTEM, _CLASSIFICATION_USER),
+        "title_only": PromptTemplate(_CLASSIFICATION_TITLE_ONLY, _CLASSIFICATION_USER),
+    },
+    "summarization": {
+        "default": PromptTemplate(_SUMMARIZATION_SYSTEM, _SUMMARIZATION_USER),
+        "embellish": PromptTemplate(_SUMMARIZATION_EMBELLISH, _SUMMARIZATION_USER),
+    },
 }
 
 

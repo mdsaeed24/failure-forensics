@@ -117,5 +117,10 @@ def test_summary_adding_an_amount_is_a_hallucination():
     assert f.failure_type == FailureType.HALLUCINATION
 
 
+def test_an_unrelated_new_amount_is_a_hallucination_even_if_a_given_one_is_unmentioned():
+    [f] = summary_findings("Harbor Lane invoiced Meridian; a £25.00 late fee applies.")
+    assert f.failure_type == FailureType.HALLUCINATION  # £25 doesn't resemble £1,028.40
+
+
 def test_classification_has_no_deterministic_checks():
     assert run_checks("classification", INTAKE_OUT, {"doc_type": "receipt", "reason": "", "confidence": 1}) == []

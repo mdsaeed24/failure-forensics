@@ -114,3 +114,13 @@ def pipeline_reply(request: dict[str, Any]) -> dict[str, Any]:
     if system.startswith("You classify"):
         return CLASSIFICATION
     return SUMMARY
+
+
+JUDGE_OK = {"score": 5, "failure_type": "none", "reason": "Correct and complete."}
+
+
+def pipeline_or_judge_reply(request: dict[str, Any]) -> dict[str, Any]:
+    """Valid pipeline replies, and a judge that approves everything."""
+    if request["messages"][0]["content"].startswith("You review ONE step"):
+        return JUDGE_OK
+    return pipeline_reply(request)

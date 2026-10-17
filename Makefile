@@ -3,7 +3,7 @@
 
 PY ?= python
 
-.PHONY: install test run check-models generate review traces analyze
+.PHONY: install test run check-models generate review traces analyze evaluate
 
 install:
 	$(PY) -m pip install -e ".[dev]"
@@ -28,3 +28,6 @@ traces:
 
 analyze:
 	$(PY) scripts/analyze_trace.py --latest
+
+evaluate:
+	$(PY) scripts/evaluate_diagnosis.py --per-fault 6

@@ -112,9 +112,13 @@ Failure Forensics/
 │   │   ├── root_cause.py      walks steps in order, picks first significant drop
 │   │   └── evidence.py        builds the plain-English evidence chain
 │   ├── faults/
-│   │   ├── injectors.py       one class per fault, each with its expected label
+│   │   ├── injectors.py       16 faults, each with its expected label: 13 hook faults
+│   │   │                      (edit a step's output) + 3 weakened prompt variants
 │   │   └── registry.py
 │   ├── evaluation/
+│   │   ├── labels.py          the answer key: traces/evaluation.sqlite, a separate file
+│   │   │                      the analyzer has no way to read
+│   │   ├── runner.py          clean runs + injected runs, resumable
 │   │   ├── metrics.py         step/type accuracy, precision/recall, confusion matrix,
 │   │   │                      false alarms, confidence calibration
 │   │   └── report.py          writes reports/diagnosis_accuracy.md

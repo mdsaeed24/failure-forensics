@@ -5,6 +5,9 @@ are held per trace until the root span ("pipeline") ends, then the whole tree is
 written at once. If the process stops before a root ends, shutdown() writes what
 it has, marked complete=false.
 
+Only pipeline runs are stored (traces whose root span is "pipeline"). Other spans,
+such as the analyzer's own judge calls, are left to any extra exporters.
+
 An exporter must never break the program it observes: errors are logged, not raised.
 """
 
@@ -42,7 +45,9 @@ class ForensicsExporter(SpanExporter):
             for span in spans:
                 self._pending[span.context.trace_id].append(span)
                 if span.parent is None:  # the root ends last, so the trace is complete
-                    finished.append(self._pending.pop(span.context.trace_id))
+                    trace_spans = self._pending.pop(span.context.trace_id)
+                    if span.name == "pipeline":
+                        finished.append(trace_spans)
         ok = all(self._write(trace_spans, complete=True) for trace_spans in finished)
         return SpanExportResult.SUCCESS if ok else SpanExportResult.FAILURE
 
@@ -50,7 +55,8 @@ class ForensicsExporter(SpanExporter):
         with self._lock:
             leftovers, self._pending = list(self._pending.values()), defaultdict(list)
         for trace_spans in leftovers:
-            self._write(trace_spans, complete=False)
+            if any(attr.STEP_NAME in (s.attributes or {}) for s in trace_spans):
+                self._write(trace_spans, complete=False)
 
     def force_flush(self, timeout_millis: int = 30_000) -> bool:
         return True

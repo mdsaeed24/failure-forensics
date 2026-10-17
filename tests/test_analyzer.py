@@ -118,6 +118,13 @@ def test_judge_failure_type_none_on_classification_still_means_misclassification
     assert d.failure_type == FailureType.MISCLASSIFICATION
 
 
+def test_misclassification_outside_classification_becomes_hallucination(make_llm, settings, trace_store):
+    trace_doc = make_trace(make_llm, settings, trace_store)
+    d, _ = diagnose(make_llm, settings, trace_doc, OK, OK,
+                    {"score": 2, "failure_type": "misclassification", "reason": "calls it an order"})
+    assert (d.root_cause_step, d.failure_type) == ("summarization", FailureType.HALLUCINATION)
+
+
 def test_only_a_suspect_is_named_with_low_confidence(make_llm, settings, trace_store):
     trace_doc = make_trace(make_llm, settings, trace_store)
     unsure = {"score": 3, "failure_type": "omission", "reason": "The contact's role may be missing."}
