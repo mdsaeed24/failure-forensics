@@ -41,7 +41,8 @@ Failure Forensics/
 ├── Makefile                   shortcuts; every target also has a plain `python ...` command
 ├── config.yaml                models, token caps, concurrency, prices, paths
 ├── .env.example               DEEPSEEK_API_KEY=...
-├── Dockerfile, docker-compose.yml           (Phase 7)
+├── Dockerfile, docker-compose.yml           (Phase 7) seed → ui + api, shared traces volume
+├── demo/demo_traces.tar.gz    snapshot of real traces for the UI (paths scrubbed; seed_demo.py)
 │
 ├── data/
 │   ├── samples/               hand-written sample docs for smoke runs (no fact sheet)
@@ -63,7 +64,7 @@ Failure Forensics/
 │   ├── review_documents.py    side-by-side doc vs fact sheet, approve/reject
 │   ├── evaluate_diagnosis.py  clean + injected runs → accuracy report
 │   ├── regression.py          re-run eval cases, track "known issues resolved"
-│   └── seed_demo.py           fill the UI with data (Docker)
+│   └── seed_demo.py           unpack the demo snapshot (Docker); --export to rebuild it
 │
 ├── src/forensics/
 │   ├── config.py              typed Settings loaded from config.yaml + .env

@@ -1,0 +1,57 @@
+# docker compose up        -> UI at http://localhost:8501, API docs at http://localhost:8000/docs
+#
+# The UI starts with demo data (real runs from this project), so no API key is needed
+# to browse. To analyze, run regression or call the pipeline from inside the
+# containers, put DEEPSEEK_API_KEY in .env first.
+#
+# Port taken? UI_PORT=8601 API_PORT=8100 docker compose up
+
+x-app: &app
+  build: .
+  image: failure-forensics:latest
+  env_file:
+    - path: .env
+      required: false
+  volumes:
+    - traces:/app/traces       # traces, diagnoses, flags, evaluation results
+    - ./data:/app/data         # eval cases you confirm land in your checkout, as locally
+
+services:
+  seed:
+    <<: *app
+    command: python scripts/seed_demo.py
+    restart: "no"
+
+  ui:
+    <<: *app
+    command: >-
+      python -m streamlit run src/forensics/ui/app.py
+      --server.address 0.0.0.0 --server.port 8501
+      --server.headless true --browser.gatherUsageStats false
+    ports:
+      - "${UI_PORT:-8501}:8501"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  api:
+    <<: *app
+    command: python -m uvicorn forensics.api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  traces:

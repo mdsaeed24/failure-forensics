@@ -96,6 +96,15 @@ def test_hook_changes_are_what_the_trace_shows(make_llm, settings, trace_store):
     assert "drop_amounts" not in trace_text  # the trace never says a hook ran
 
 
+def test_prompt_variant_names_are_not_recorded(make_llm, settings, trace_store):
+    """The prompt TEXT is evidence and is kept; the variant's NAME would label the fault."""
+    llm, _ = make_llm(EXTRACTION, CLASSIFICATION, SUMMARY)
+    result = run(llm, settings, PipelineOptions(prompt_variants={"extraction": "main_facts_only"}))
+    trace_text = trace_store.path_of(result.trace_id).read_text()
+    assert "main_facts_only" not in trace_text
+    assert "Keep it short" in trace_text  # the weakened prompt itself is visible, as in real life
+
+
 def test_concurrent_runs_get_separate_traces(make_llm, settings, trace_store):
     llm, _ = make_llm(*[pipeline_reply] * 9)
     docs = [SAMPLE.model_copy(update={"doc_id": f"doc_{i}"}) for i in range(3)]

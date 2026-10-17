@@ -3,7 +3,7 @@
 
 PY ?= python
 
-.PHONY: install test run check-models generate review traces analyze evaluate ui api regression
+.PHONY: install test run check-models generate review traces analyze evaluate ui api regression demo up
 
 install:
 	$(PY) -m pip install -e ".[dev]"
@@ -40,3 +40,9 @@ api:
 
 regression:
 	$(PY) scripts/regression.py
+
+demo:
+	$(PY) scripts/seed_demo.py
+
+up:
+	docker compose up
