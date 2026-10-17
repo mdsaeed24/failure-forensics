@@ -1,0 +1,31 @@
+# Failure Forensics configuration. Secrets (the API key) live in .env, not here.
+
+llm:
+  base_url: https://api.deepseek.com
+  pipeline_model: deepseek-flash      # the model under test (fast, cheap)
+  judge_model: deepseek-v4-pro        # Phase 4 judge: stronger and different on purpose
+  max_output_tokens: 4000             # hard cap per call; deepseek-flash's hidden reasoning counts against it
+  temperature: 0.0
+  concurrency: 4                      # max API requests in flight at once
+  max_retries: 2                      # retries for rate limits / timeouts / 5xx
+  backoff_base_seconds: 1.0           # waits 1s, 2s, 4s, ... between retries
+  timeout_seconds: 60
+
+pipeline:
+  max_document_chars: 20000           # intake rejects longer documents instead of silently truncating
+
+# USD per 1M tokens. PLACEHOLDERS: check https://api-docs.deepseek.com/quick_start/pricing
+# and update once the model IDs are confirmed. A model missing here gets cost = None, not 0.
+prices:
+  deepseek-flash:
+    input_per_million: 0.28
+    output_per_million: 0.42
+  deepseek-v4-pro:
+    input_per_million: 0.28
+    output_per_million: 0.42
+
+paths:
+  documents_dir: data/documents
+  samples_dir: data/samples
+  traces_dir: traces
+  reports_dir: reports
