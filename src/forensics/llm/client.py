@@ -126,15 +126,25 @@ class LLMClient:
         schema: type[T],
         model: str | None = None,
         max_tokens: int | None = None,
+        temperature: float | None = None,
+        thinking: bool = True,
     ) -> LLMResult[T]:
+        """Unset options fall back to config.yaml's llm section. `thinking=False` turns off
+        DeepSeek's hidden reasoning for this call (faster, cheaper, no reasoning tokens)."""
         call = LLMCall(model=model or self._llm.pipeline_model)
+        options: dict[str, Any] = {
+            "max_tokens": max_tokens or self._llm.max_output_tokens,
+            "temperature": self._llm.temperature if temperature is None else temperature,
+        }
+        if not thinking:
+            options["extra_body"] = {"thinking": {"type": "disabled"}}
         messages: list[dict[str, str]] = [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ]
         start = time.perf_counter()
         try:
-            text = await self._create(messages, call, max_tokens)
+            text = await self._create(messages, call, options)
             try:
                 parsed = _parse(text, schema)
             except (ValueError, ValidationError) as first_error:
@@ -144,7 +154,7 @@ class LLMClient:
                     {"role": "assistant", "content": text},
                     {"role": "user", "content": _repair_message(first_error)},
                 ]
-                text = await self._create(messages, call, max_tokens)
+                text = await self._create(messages, call, options)
                 try:
                     parsed = _parse(text, schema)
                 except (ValueError, ValidationError) as second_error:
@@ -162,7 +172,7 @@ class LLMClient:
         return LLMResult(parsed=parsed, call=call)
 
     async def _create(
-        self, messages: list[dict[str, str]], call: LLMCall, max_tokens: int | None
+        self, messages: list[dict[str, str]], call: LLMCall, options: dict[str, Any]
     ) -> str:
         """One API request, retried on transient errors. Returns the reply text."""
         for attempt in range(self._llm.max_retries + 1):
@@ -173,8 +183,7 @@ class LLMClient:
                         model=call.model,
                         messages=messages,
                         response_format={"type": "json_object"},
-                        max_tokens=max_tokens or self._llm.max_output_tokens,
-                        temperature=self._llm.temperature,
+                        **options,
                     )
             except Exception as exc:
                 if not _is_retryable(exc):
@@ -213,10 +222,7 @@ class LLMClient:
             call.reasoning_tokens,
         )
         if call.truncated:
-            log.warning(
-                "%s hit the max_tokens cap (%d); output is truncated",
-                call.model, self._llm.max_output_tokens,
-            )
+            log.warning("%s hit its max_tokens cap; output is truncated", call.model)
         return call.raw_output
 
 

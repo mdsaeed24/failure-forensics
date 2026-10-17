@@ -1,0 +1,1641 @@
+{
+  "inv_001": {
+    "doc_id": "inv_001",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Brightline Digital LLC",
+        "role": "seller"
+      },
+      {
+        "name": "Cascade Outdoor Supply",
+        "role": "buyer"
+      },
+      {
+        "name": "Marcus Whitfield",
+        "role": "buyer contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-06-15",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-07-15",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "18400.00",
+        "currency": "USD",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "a9fee110d5f5434defc3c50c1cce284cd9f92085948584a2dcb06c117c81eb10",
+    "doc_sha256": "c7c85399f65ff9cff6100fde8be0ad6b54140cba4c975dbf130ebe08d874c542"
+  },
+  "rem_001": {
+    "doc_id": "rem_001",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Fenwick & Hale Accountants",
+        "role": "sender"
+      },
+      {
+        "name": "Orchard Lane Bakery Ltd",
+        "role": "recipient"
+      },
+      {
+        "name": "Sophie Brennan",
+        "role": "sender contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-04-30",
+        "label": "original due date"
+      },
+      {
+        "date": "2026-06-05",
+        "label": "reminder date"
+      },
+      {
+        "date": "2026-06-19",
+        "label": "new payment deadline"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "2350.00",
+        "currency": "GBP",
+        "label": "amount overdue"
+      },
+      {
+        "amount": "40.00",
+        "currency": "GBP",
+        "label": "late payment fee"
+      }
+    ],
+    "sheet_sha256": "0700688d25f06eec52e0ed76e60b8383e24ad2d4208f10db1ae80cad3285e780",
+    "doc_sha256": "843c288d87757329d4ab5dfc6948b79fe7d31d66b470a527b8f1b0029cc2d7e5"
+  },
+  "con_001": {
+    "doc_id": "con_001",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Van Dijk Logistiek B.V.",
+        "role": "client"
+      },
+      {
+        "name": "Helder Facility Services",
+        "role": "contractor"
+      },
+      {
+        "name": "Annelies de Vries",
+        "role": "signatory for the client"
+      },
+      {
+        "name": "Tomasz Nowak",
+        "role": "signatory for the contractor"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-09-01",
+        "label": "start date"
+      },
+      {
+        "date": "2027-08-31",
+        "label": "end date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "3200.00",
+        "currency": "EUR",
+        "label": "monthly fee"
+      },
+      {
+        "amount": "500.00",
+        "currency": "EUR",
+        "label": "early termination fee"
+      }
+    ],
+    "sheet_sha256": "904f2a8e5d99a2ae1e1bef799d47b69669eef149859adf555dae43643832f56c",
+    "doc_sha256": "16176f03a277aa0af82e14bce77337a68e5dcb8cf92e54b4e11940e27f423b31"
+  },
+  "inv_002": {
+    "doc_id": "inv_002",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Kestrel Joinery Ltd",
+        "role": "seller"
+      },
+      {
+        "name": "Thornbury Primary School",
+        "role": "buyer"
+      },
+      {
+        "name": "Gareth Pryce",
+        "role": "school business manager"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-10",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-03-12",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "4850.00",
+        "currency": "GBP",
+        "label": "subtotal"
+      },
+      {
+        "amount": "970.00",
+        "currency": "GBP",
+        "label": "VAT"
+      },
+      {
+        "amount": "5820.00",
+        "currency": "GBP",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "6633c4ee322dfb8a0a6ca0632c08142024a87ff269e1905febce8a52b42d2abc",
+    "doc_sha256": "0bb425e650efe1f279ced5d50d80d0df393e31c88cc38106d8c23f990b34d209"
+  },
+  "inv_003": {
+    "doc_id": "inv_003",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Hoshino Translation Services",
+        "role": "seller"
+      },
+      {
+        "name": "Aoba Medical Devices K.K.",
+        "role": "buyer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-05-20",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-06-30",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "350000",
+        "currency": "JPY",
+        "label": "subtotal"
+      },
+      {
+        "amount": "35000",
+        "currency": "JPY",
+        "label": "consumption tax"
+      },
+      {
+        "amount": "385000",
+        "currency": "JPY",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "cb02f5f829ec9f3d30444e505107a71fba06e0dd81eb220726421ab78e193fe5",
+    "doc_sha256": "31547375d9938623439d0b765199f2351ebfc4c62917df225440d984eee17236"
+  },
+  "inv_004": {
+    "doc_id": "inv_004",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Sahyadri Cloud Solutions Pvt Ltd",
+        "role": "seller"
+      },
+      {
+        "name": "Kaveri Textiles",
+        "role": "buyer"
+      },
+      {
+        "name": "Ananya Iyer",
+        "role": "buyer accounts contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-01-05",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-01-20",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "120000.00",
+        "currency": "INR",
+        "label": "subtotal"
+      },
+      {
+        "amount": "21600.00",
+        "currency": "INR",
+        "label": "GST"
+      },
+      {
+        "amount": "141600.00",
+        "currency": "INR",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "6b176aa3cce8ddb140059cae3937df98cba92cd19245b5329db7a8a21fcdf52b",
+    "doc_sha256": "0f930cfce5085bb674d0ff7b8c3207aeb427c42c998e4ca2193db7320a5f529f"
+  },
+  "inv_005": {
+    "doc_id": "inv_005",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Coastline Electrical",
+        "role": "seller"
+      },
+      {
+        "name": "Daniel Brooks",
+        "role": "homeowner"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2025-11-18",
+        "label": "invoice date"
+      },
+      {
+        "date": "2025-12-02",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "1342.00",
+        "currency": "AUD",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "59d8928663926093f5d215c75dc1b88be4ffa2523e2468c8dfa83c017596d896",
+    "doc_sha256": "dff8a84a47a19d00cd6e84708f9cc7708b517fbd77907d94d0f47fad9c9766c9"
+  },
+  "inv_006": {
+    "doc_id": "inv_006",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Northern Lights Event Rentals",
+        "role": "seller"
+      },
+      {
+        "name": "Maple Ridge Golf Club",
+        "role": "buyer"
+      },
+      {
+        "name": "Isabelle Tremblay",
+        "role": "buyer contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-08-22",
+        "label": "event date"
+      },
+      {
+        "date": "2026-08-25",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-09-24",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "6750.00",
+        "currency": "CAD",
+        "label": "rental charges"
+      },
+      {
+        "amount": "1500.00",
+        "currency": "CAD",
+        "label": "deposit already paid"
+      },
+      {
+        "amount": "5250.00",
+        "currency": "CAD",
+        "label": "balance due"
+      }
+    ],
+    "sheet_sha256": "246fecaf28c2c9d8dcd88ca7fa577bf1d7e768f5616d14fc6800f0ebab7c2faa",
+    "doc_sha256": "55bb7cbc0152bcecb9feb95cf9a9214aa1f133cbe0820a8e0bfa57f950e9906a"
+  },
+  "inv_007": {
+    "doc_id": "inv_007",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Brandt Industrieservice GmbH",
+        "role": "seller"
+      },
+      {
+        "name": "Lindqvist Packaging AB",
+        "role": "buyer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-02",
+        "label": "date of the accepted quotation"
+      },
+      {
+        "date": "2026-04-14",
+        "label": "work completed"
+      },
+      {
+        "date": "2026-04-16",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-05-16",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "12980.00",
+        "currency": "EUR",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "68f21c5f50179247cb262301c03072ff7024d9e91a381fdf89efdbe16deb9814",
+    "doc_sha256": "7eccbf2c068f93542fee02816f3c095d1d74f12edd696e6df0b2f16693243035"
+  },
+  "inv_008": {
+    "doc_id": "inv_008",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Rachel Lim",
+        "role": "seller (freelance photographer)"
+      },
+      {
+        "name": "Tanjong Pagar Dental Group",
+        "role": "buyer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-07-03",
+        "label": "shoot date"
+      },
+      {
+        "date": "2026-07-06",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-07-20",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "2400.00",
+        "currency": "SGD",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "f983a99f0c64fbf6f0046f3b753874228f34149ba0749edc04392d5e9ae3e9c3",
+    "doc_sha256": "2180954b36a319ed3b217d66ffc29faa2e447d78c5ed2d08b3a0c153c9107fec"
+  },
+  "inv_009": {
+    "doc_id": "inv_009",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Redwood Analytics Inc.",
+        "role": "seller"
+      },
+      {
+        "name": "Harborview Credit Union",
+        "role": "buyer"
+      },
+      {
+        "name": "Leon Park",
+        "role": "buyer contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-10-01",
+        "label": "invoice date"
+      },
+      {
+        "date": "2026-10-31",
+        "label": "due date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "9600.00",
+        "currency": "USD",
+        "label": "annual subscription fee"
+      },
+      {
+        "amount": "1200.00",
+        "currency": "USD",
+        "label": "onboarding fee"
+      },
+      {
+        "amount": "10800.00",
+        "currency": "USD",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "43796bb0517a37f181478aad4b9e540c206f226cc95c02c78a04755c3ec1aa27",
+    "doc_sha256": "2c1fc33891e0203cd8fe2058015d9e8116b67a0cc2589c188fe71eb0cb8c51ad"
+  },
+  "inv_010": {
+    "doc_id": "inv_010",
+    "doc_type": "invoice",
+    "parties": [
+      {
+        "name": "Alpenblick Hotel",
+        "role": "seller"
+      },
+      {
+        "name": "Meyer & Partner Treuhand",
+        "role": "buyer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-12-14",
+        "label": "invoice date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "3460.00",
+        "currency": "CHF",
+        "label": "total due"
+      }
+    ],
+    "sheet_sha256": "f73699462125f9a191bcdcadc9c3a52957a48d9f86e9e1f66a19cbb58ceca76d",
+    "doc_sha256": "c9d4489dbd3ad5d40ddd50c24e00ff6f50782160105e4b9386b7b11501d6f8bb"
+  },
+  "rct_001": {
+    "doc_id": "rct_001",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Fernwood Garden Center",
+        "role": "seller"
+      },
+      {
+        "name": "Olivia Grant",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-04-11",
+        "label": "purchase date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "86.45",
+        "currency": "USD",
+        "label": "amount paid"
+      }
+    ],
+    "sheet_sha256": "c39058b61dddc0eb79423b2787523482e9138588d4005a54545a758343c4ceb6",
+    "doc_sha256": "a6939a9a8be0c4630a02af102f2440bbce6288ec987c5587f18f8aba82bdaf23"
+  },
+  "rct_002": {
+    "doc_id": "rct_002",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Clarke & Dunn Plumbing",
+        "role": "seller"
+      },
+      {
+        "name": "Hollybrook Lettings",
+        "role": "payer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-13",
+        "label": "original invoice date"
+      },
+      {
+        "date": "2026-02-27",
+        "label": "payment received"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "640.00",
+        "currency": "GBP",
+        "label": "amount paid"
+      }
+    ],
+    "sheet_sha256": "087b55bfc7b3f2aed904e38efe138a0305d040afeedbe13a0097c278702e2ee7",
+    "doc_sha256": "ecd6afff4f718e6a375a8a9734d425e0c0a1dd40d54e2f5af77dbf36d3d4d326"
+  },
+  "rct_003": {
+    "doc_id": "rct_003",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Hotel Miramar Lisboa",
+        "role": "hotel"
+      },
+      {
+        "name": "Jonas Weber",
+        "role": "guest"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-05-08",
+        "label": "check-in"
+      },
+      {
+        "date": "2026-05-11",
+        "label": "check-out and payment"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "642.00",
+        "currency": "EUR",
+        "label": "total paid"
+      },
+      {
+        "amount": "12.00",
+        "currency": "EUR",
+        "label": "city tax included in the total"
+      }
+    ],
+    "sheet_sha256": "cda92cb7a9128fa95b2a3eef418a470001ef16f32b90827ecc8449f0d51fdd90",
+    "doc_sha256": "da62b9d993c3a55e2dcf7f1d050e9c4a37b9b79694a8d28198984c314b7f5cc3"
+  },
+  "rct_004": {
+    "doc_id": "rct_004",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Asha Learning Foundation",
+        "role": "charity"
+      },
+      {
+        "name": "Vikram Mehta",
+        "role": "donor"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-15",
+        "label": "donation date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "25000.00",
+        "currency": "INR",
+        "label": "donation received"
+      }
+    ],
+    "sheet_sha256": "9b48373fb6358c35beaf4eacc60735413c17da86ffb25a2d92c02a8c9fd94c90",
+    "doc_sha256": "8279ed654d1dcf6c89c8ab2b3b34c0b0cda9fbb930704bcc6905e647d4a70a4b"
+  },
+  "rct_005": {
+    "doc_id": "rct_005",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Kumo Coffee Roasters",
+        "role": "seller"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-09-09",
+        "label": "purchase date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "1850",
+        "currency": "JPY",
+        "label": "amount paid"
+      }
+    ],
+    "sheet_sha256": "03cb60c0dfba2a840bbd3d4fa3e6e704bf957bd81841598168b0b0b32255f0ed",
+    "doc_sha256": "f197efa1f30d5ad09651db8c92055c8aeaa4a75e11b5b56e655c68477ee71058"
+  },
+  "rct_006": {
+    "doc_id": "rct_006",
+    "doc_type": "receipt",
+    "parties": [
+      {
+        "name": "Priyanka Shah",
+        "role": "landlord"
+      },
+      {
+        "name": "Ethan Morrison",
+        "role": "tenant"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-06-01",
+        "label": "payment date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "2150.00",
+        "currency": "CAD",
+        "label": "rent paid"
+      }
+    ],
+    "sheet_sha256": "79e8d38a9976be093e39b59621e8a72814180e50257b1f963a970d65216e5c9d",
+    "doc_sha256": "b5fe4bee6476659b088c08330d39111fe1e32a0bc1c3520fae7a042f300e9e2a"
+  },
+  "po_001": {
+    "doc_id": "po_001",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Summit Ridge Hospital",
+        "role": "buyer"
+      },
+      {
+        "name": "Clearwater Medical Supplies",
+        "role": "supplier"
+      },
+      {
+        "name": "Nadia Hussain",
+        "role": "procurement officer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-02",
+        "label": "order date"
+      },
+      {
+        "date": "2026-02-16",
+        "label": "deliver by"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "7425.00",
+        "currency": "USD",
+        "label": "order total"
+      }
+    ],
+    "sheet_sha256": "a543986808b10c816da7779215d272ee7b5d9b61052555decbc497d8be5169be",
+    "doc_sha256": "da8781cf1db39bb363786e831bbff1fa244f7cbf66aed7b53bf9264968d4f112"
+  },
+  "po_002": {
+    "doc_id": "po_002",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Bäckerei Hofmann",
+        "role": "buyer"
+      },
+      {
+        "name": "Mühlenwerk Getreide GmbH",
+        "role": "supplier"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-10-05",
+        "label": "order date"
+      },
+      {
+        "date": "2026-10-12",
+        "label": "delivery date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "1980.00",
+        "currency": "EUR",
+        "label": "order total"
+      }
+    ],
+    "sheet_sha256": "9a2addfdf088fd772013b5de7af55b0eb5dd36107b2ea6cf6f8720829c22e336",
+    "doc_sha256": "6d65dd940b289d01524c74b947b9975e6a16d9f704c3e1bc2730163affeeff05"
+  },
+  "po_003": {
+    "doc_id": "po_003",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Ashworth Engineering Ltd",
+        "role": "buyer"
+      },
+      {
+        "name": "Pennine Steel Stockholders",
+        "role": "supplier"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-07-07",
+        "label": "order date"
+      },
+      {
+        "date": "2026-07-28",
+        "label": "required delivery date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "23600.00",
+        "currency": "GBP",
+        "label": "order value"
+      }
+    ],
+    "sheet_sha256": "90f15c10e41c85c3d17d7556fbd0e956ea96c230ef33c3e5917f232fecd8a932",
+    "doc_sha256": "09fa99ccb35256370047d2f666b191980c107c111b86c2ae01755ac9399e050b"
+  },
+  "po_004": {
+    "doc_id": "po_004",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Riverina Shire Council",
+        "role": "buyer"
+      },
+      {
+        "name": "Outback Signage Co",
+        "role": "supplier"
+      },
+      {
+        "name": "Michelle Walsh",
+        "role": "approving officer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-23",
+        "label": "order date"
+      },
+      {
+        "date": "2026-04-20",
+        "label": "delivery date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "8200.00",
+        "currency": "AUD",
+        "label": "subtotal"
+      },
+      {
+        "amount": "820.00",
+        "currency": "AUD",
+        "label": "GST"
+      },
+      {
+        "amount": "9020.00",
+        "currency": "AUD",
+        "label": "order total"
+      }
+    ],
+    "sheet_sha256": "7bd4acdf6b99434c6fb9a37311d0b6dd9bdcfec7048f9d43e56784d9a129c58d",
+    "doc_sha256": "c40f5a32c2da99eb71445dab9bf02d9133cd5fe783f4d9bc796d1b8ba45169cb"
+  },
+  "po_005": {
+    "doc_id": "po_005",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Nilgiri Tea Estates",
+        "role": "buyer"
+      },
+      {
+        "name": "Coimbatore Pump Works",
+        "role": "supplier"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-08-11",
+        "label": "order date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "345000.00",
+        "currency": "INR",
+        "label": "order total"
+      }
+    ],
+    "sheet_sha256": "e3d4059a28a34cd5905b6c1bf84d6f2626020e9a8fa3f09319838c6c36c6fdc5",
+    "doc_sha256": "a963b5ab0068fa69d09423b05b3dbdb629e875e1a93cdd846637f22423b4965f"
+  },
+  "po_006": {
+    "doc_id": "po_006",
+    "doc_type": "purchase_order",
+    "parties": [
+      {
+        "name": "Lakeside Montessori School",
+        "role": "buyer"
+      },
+      {
+        "name": "Brightway Furniture",
+        "role": "supplier"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-01-19",
+        "label": "order date"
+      },
+      {
+        "date": "2026-02-09",
+        "label": "delivery date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "4310.00",
+        "currency": "USD",
+        "label": "order total"
+      }
+    ],
+    "sheet_sha256": "468951458d0156b68edc2d18a79160a171cbec09025ddad47d07f8ca293c6391",
+    "doc_sha256": "1a7778463d87bd3f33cf26f61e9115f87934292a7a75fff3fc3f05f3e205f91a"
+  },
+  "qte_001": {
+    "doc_id": "qte_001",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Greenleaf Landscapes",
+        "role": "seller"
+      },
+      {
+        "name": "Hannah Doyle",
+        "role": "prospective customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-30",
+        "label": "quote date"
+      },
+      {
+        "date": "2026-04-29",
+        "label": "valid until"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "3750.00",
+        "currency": "GBP",
+        "label": "quoted total"
+      }
+    ],
+    "sheet_sha256": "45b2c795d4caa4a08c1b4435d03b30cfba942f35ec64b449a50d84d5f5c7c927",
+    "doc_sha256": "21a8019009fe22cb270060f5e94414d89c56afe633338d283887b0fb908704ac"
+  },
+  "qte_002": {
+    "doc_id": "qte_002",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Ironclad Roofing",
+        "role": "seller"
+      },
+      {
+        "name": "Pinecrest Homeowners Association",
+        "role": "prospective customer"
+      },
+      {
+        "name": "Robert Alvarez",
+        "role": "association contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-05-12",
+        "label": "quote date"
+      },
+      {
+        "date": "2026-06-11",
+        "label": "valid until"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "42500.00",
+        "currency": "USD",
+        "label": "quoted price"
+      },
+      {
+        "amount": "8500.00",
+        "currency": "USD",
+        "label": "deposit on acceptance"
+      }
+    ],
+    "sheet_sha256": "fc1af9bfee8e9403d6982c4bd26907ead3740526871496323ebd262fd7014caf",
+    "doc_sha256": "c1e8129c16afef63fcc4aaa463b02e3cec2623c9f38fd18d59521c468de7dc4d"
+  },
+  "qte_003": {
+    "doc_id": "qte_003",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Atelier Lumière",
+        "role": "seller"
+      },
+      {
+        "name": "Maison Dubois Événements",
+        "role": "prospective customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-11-03",
+        "label": "issue date"
+      },
+      {
+        "date": "2026-11-17",
+        "label": "offer valid until"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "5600.00",
+        "currency": "EUR",
+        "label": "proposed total"
+      }
+    ],
+    "sheet_sha256": "0e6daf491b4465a58a5836a408d54ca56588ad127209d38bff84d66e43f4637b",
+    "doc_sha256": "c22b4665a797e62344bb497967f5104c0542597a3fda7745d17b678aad73a40b"
+  },
+  "qte_004": {
+    "doc_id": "qte_004",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Merlion IT Services",
+        "role": "seller"
+      },
+      {
+        "name": "Orchid Bay Travel",
+        "role": "prospective customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-18",
+        "label": "quote date"
+      },
+      {
+        "date": "2026-03-04",
+        "label": "valid until"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "3200.00",
+        "currency": "SGD",
+        "label": "one-time setup fee"
+      },
+      {
+        "amount": "450.00",
+        "currency": "SGD",
+        "label": "monthly support fee"
+      }
+    ],
+    "sheet_sha256": "b59522455adff7009a6f4743813b5219af8d1bccaaa91cd46871f066bca37408",
+    "doc_sha256": "f5af0fe52d9a56dbea16b0cc70d2cf946c71e96d4e6874a17e0da18696fd9e91"
+  },
+  "qte_005": {
+    "doc_id": "qte_005",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Sakura Print Works",
+        "role": "seller"
+      },
+      {
+        "name": "Midori Bookshop",
+        "role": "prospective customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-06-02",
+        "label": "quote date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "128000",
+        "currency": "JPY",
+        "label": "quoted price"
+      }
+    ],
+    "sheet_sha256": "0bec8a8546f65ceb7cca877f0a8ca709641e75efde718b28f67c09410d26d676",
+    "doc_sha256": "846182fd41483fe211a2de77d2ef753fec0d19b947ec49ec363521c392b82441"
+  },
+  "qte_006": {
+    "doc_id": "qte_006",
+    "doc_type": "quotation",
+    "parties": [
+      {
+        "name": "Prairie Ag Equipment",
+        "role": "seller"
+      },
+      {
+        "name": "Hendricks Family Farms",
+        "role": "prospective buyer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-04-06",
+        "label": "quote date"
+      },
+      {
+        "date": "2026-05-06",
+        "label": "valid until"
+      },
+      {
+        "date": "2026-05-25",
+        "label": "estimated delivery if ordered"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "68900.00",
+        "currency": "CAD",
+        "label": "quoted price"
+      }
+    ],
+    "sheet_sha256": "fe74b537279f6bf3a743a2a128b725af26dd2dd31cc0307914e4df5c35b2dcf1",
+    "doc_sha256": "fdfc3ab5c9d65fa1850b1179df0eaeb8446ba745c24c7214aa9064b837f3d558"
+  },
+  "con_002": {
+    "doc_id": "con_002",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Quantra Biotech Inc.",
+        "role": "party"
+      },
+      {
+        "name": "Halvorsen Research Partners",
+        "role": "party"
+      },
+      {
+        "name": "Elena Petrova",
+        "role": "signatory for Quantra Biotech Inc."
+      },
+      {
+        "name": "Magnus Halvorsen",
+        "role": "signatory for Halvorsen Research Partners"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-01-12",
+        "label": "effective date"
+      },
+      {
+        "date": "2029-01-12",
+        "label": "confidentiality obligations end"
+      }
+    ],
+    "amounts": [],
+    "sheet_sha256": "19f5aa3edcbf93f22c89f3d892442407624348371007687ebd55626980dc6152",
+    "doc_sha256": "57b0d419ff3d455ae9cc82e6464db3e33c61c4f374f169830535574771c25685"
+  },
+  "con_003": {
+    "doc_id": "con_003",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Northwind Studio LLC",
+        "role": "client"
+      },
+      {
+        "name": "Carlos Mendoza",
+        "role": "contractor"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-01",
+        "label": "start date"
+      },
+      {
+        "date": "2026-08-31",
+        "label": "end date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "85.00",
+        "currency": "USD",
+        "label": "hourly rate"
+      },
+      {
+        "amount": "6000.00",
+        "currency": "USD",
+        "label": "monthly cap"
+      }
+    ],
+    "sheet_sha256": "5755c3fc20b4b82c724dc86bb45059c9b978d9f09b063db0f74cef10a2289650",
+    "doc_sha256": "0283cddb7a68e1bb96713a8493902196c8903e81dbff8481021bd7478010acc3"
+  },
+  "con_004": {
+    "doc_id": "con_004",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Ridgeway Foods Ltd",
+        "role": "buyer"
+      },
+      {
+        "name": "Valewood Dairy",
+        "role": "supplier"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-04-01",
+        "label": "start date"
+      },
+      {
+        "date": "2028-03-31",
+        "label": "end date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "18.50",
+        "currency": "GBP",
+        "label": "price per crate"
+      },
+      {
+        "amount": "50000.00",
+        "currency": "GBP",
+        "label": "minimum annual purchase"
+      }
+    ],
+    "sheet_sha256": "87d4d65434b3348aea0bbd1e9aa4ba9ee4e33236d7dfed114b5a2e649e9154a8",
+    "doc_sha256": "f38f744318aa3ceb34966083dfb8b05aebec177ea18224b8122e428d6979b1fc"
+  },
+  "con_005": {
+    "doc_id": "con_005",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Harbourside Property Trust",
+        "role": "landlord"
+      },
+      {
+        "name": "Blue Gum Physiotherapy",
+        "role": "tenant"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-07-01",
+        "label": "lease start"
+      },
+      {
+        "date": "2029-06-30",
+        "label": "lease end"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "5400.00",
+        "currency": "AUD",
+        "label": "monthly rent"
+      },
+      {
+        "amount": "16200.00",
+        "currency": "AUD",
+        "label": "security deposit"
+      }
+    ],
+    "sheet_sha256": "ea164313c155cc470f9daec300aee1bf0c9e74691917065dc7a24bf8822c2123",
+    "doc_sha256": "26474b743885e8b096a368693f44dc0ef4f53e432d9e80075e15c7d86d99c576"
+  },
+  "con_006": {
+    "doc_id": "con_006",
+    "doc_type": "contract",
+    "parties": [
+      {
+        "name": "Deccan Freight Carriers",
+        "role": "carrier"
+      },
+      {
+        "name": "Sunrise Agro Exports",
+        "role": "customer"
+      },
+      {
+        "name": "Rahul Deshpande",
+        "role": "signatory for the carrier"
+      },
+      {
+        "name": "Meera Kulkarni",
+        "role": "signatory for the customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-09-15",
+        "label": "effective date"
+      },
+      {
+        "date": "2027-09-14",
+        "label": "end of term"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "18500.00",
+        "currency": "INR",
+        "label": "rate per container"
+      }
+    ],
+    "sheet_sha256": "fe9a627d30e88819c1011be2414f141e4155b49af5cb6b3bd8977e5627ae3048",
+    "doc_sha256": "56bd13a025e334c59a967d4f75c546a44a0c56337c0c946a216f8b9b7f9fe682"
+  },
+  "rem_002": {
+    "doc_id": "rem_002",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Lumen Web Hosting",
+        "role": "sender"
+      },
+      {
+        "name": "Tidewater Kayak Tours",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-05-01",
+        "label": "invoice due date"
+      },
+      {
+        "date": "2026-05-08",
+        "label": "reminder date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "129.00",
+        "currency": "USD",
+        "label": "amount overdue"
+      }
+    ],
+    "sheet_sha256": "fe85ff4adce794f0c59e26790e84463ef7352741d4d38672df87a577e660b073",
+    "doc_sha256": "b58bb78febd32e233620cf6039e55f5dfaffcced087d9a1bf2fe1daf8101f549"
+  },
+  "rem_003": {
+    "doc_id": "rem_003",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Steiner Elektrotechnik",
+        "role": "sender"
+      },
+      {
+        "name": "Gruber Bau GmbH",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-28",
+        "label": "original due date"
+      },
+      {
+        "date": "2026-04-02",
+        "label": "notice date"
+      },
+      {
+        "date": "2026-04-16",
+        "label": "final deadline"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "7800.00",
+        "currency": "EUR",
+        "label": "amount outstanding"
+      }
+    ],
+    "sheet_sha256": "1aad3e3481d9fd3c02a26966578f7629fafe6a821c9d18a70d0b48b7fa4a5630",
+    "doc_sha256": "60e15c142fd41e9990301d003505293e71ef50313b81e972c07829d86c25ff24"
+  },
+  "rem_004": {
+    "doc_id": "rem_004",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Wexford Office Interiors",
+        "role": "sender"
+      },
+      {
+        "name": "Calder Valley Housing",
+        "role": "customer"
+      },
+      {
+        "name": "Joanne Pike",
+        "role": "customer accounts contact"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-06-03",
+        "label": "original invoice date"
+      },
+      {
+        "date": "2026-07-03",
+        "label": "original due date"
+      },
+      {
+        "date": "2026-07-17",
+        "label": "reminder date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "11240.00",
+        "currency": "GBP",
+        "label": "amount outstanding"
+      }
+    ],
+    "sheet_sha256": "a2a10f7a36e35a32db325eb74d774140c05a6562cb28f96f7caca8cca5ee0a00",
+    "doc_sha256": "2ec04eb3e1d268c199c18850ff797163b47f5992619690bb0dfd01154c2af239"
+  },
+  "rem_005": {
+    "doc_id": "rem_005",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Fujimoto Architectural Office",
+        "role": "sender"
+      },
+      {
+        "name": "Kawaguchi Home Builders",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-08-31",
+        "label": "due date"
+      },
+      {
+        "date": "2026-09-14",
+        "label": "reminder date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "1650000",
+        "currency": "JPY",
+        "label": "amount overdue"
+      }
+    ],
+    "sheet_sha256": "adf8899f6b7efe3043507a8f283d640aae49f5ead5d1e2eea20e390fcb373226",
+    "doc_sha256": "4980527d6f7dee4b150a18c8f98ab782f14e1465898c45845dddc96df15eef99"
+  },
+  "rem_006": {
+    "doc_id": "rem_006",
+    "doc_type": "payment_reminder",
+    "parties": [
+      {
+        "name": "Raffles Lane Catering",
+        "role": "sender"
+      },
+      {
+        "name": "Kallang Sports Club",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-10-10",
+        "label": "original due date"
+      },
+      {
+        "date": "2026-10-20",
+        "label": "partial payment received"
+      },
+      {
+        "date": "2026-11-02",
+        "label": "reminder date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "3600.00",
+        "currency": "SGD",
+        "label": "invoice total"
+      },
+      {
+        "amount": "1000.00",
+        "currency": "SGD",
+        "label": "partial payment received"
+      },
+      {
+        "amount": "2600.00",
+        "currency": "SGD",
+        "label": "remaining balance"
+      }
+    ],
+    "sheet_sha256": "63de03576f42ab55a6d63b41a17b04594634dee4a113d38df824c82a59f78d0e",
+    "doc_sha256": "c321cc7ab46505dd0988a84737c7d8a333df09c54cb6cf38069b50756ebd9f8b"
+  },
+  "oth_001": {
+    "doc_id": "oth_001",
+    "doc_type": "other",
+    "parties": [
+      {
+        "name": "Granite Peak Insurance",
+        "role": "company"
+      },
+      {
+        "name": "Sandra Okonkwo",
+        "role": "HR director"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-03-02",
+        "label": "memo date"
+      },
+      {
+        "date": "2026-04-01",
+        "label": "policy takes effect"
+      }
+    ],
+    "amounts": [],
+    "sheet_sha256": "59f5cf21002d8d5c30034f9b222a597fe7a4b775a01735dc0ad07757b0a09385",
+    "doc_sha256": "d732979f941ed9a4be424d5b1ffb89d8d5d2909104c03ac2ee3bbd386fbe90d1"
+  },
+  "oth_002": {
+    "doc_id": "oth_002",
+    "doc_type": "other",
+    "parties": [
+      {
+        "name": "Bramble & Co Stationers",
+        "role": "seller"
+      },
+      {
+        "name": "Northgate Dental Practice",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-05-19",
+        "label": "credit note date"
+      },
+      {
+        "date": "2026-05-02",
+        "label": "original invoice date"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "214.80",
+        "currency": "GBP",
+        "label": "amount credited"
+      }
+    ],
+    "sheet_sha256": "77836967aff262aa4cba43cc98ab5524e9377fdebbf264c72bfb2ffe5b91f835",
+    "doc_sha256": "b969877a8ea94f338274c36103d0929041282427afe17dfcda3a04018487d539"
+  },
+  "oth_003": {
+    "doc_id": "oth_003",
+    "doc_type": "other",
+    "parties": [
+      {
+        "name": "Dutchess Valley Lumber",
+        "role": "supplier"
+      },
+      {
+        "name": "Oakhurst Builders",
+        "role": "customer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-06-24",
+        "label": "delivery date"
+      }
+    ],
+    "amounts": [],
+    "sheet_sha256": "1126ab8417cd332f13c1a6a8bdb561b02497f95e2b3ba06e143e15e583f5be46",
+    "doc_sha256": "6f60aa1157ce67046ab1c6fb019d3d3f70dce3c5ddf258b2797d60c19fbbb870"
+  },
+  "oth_004": {
+    "doc_id": "oth_004",
+    "doc_type": "other",
+    "parties": [
+      {
+        "name": "Westbrook Residents Association",
+        "role": "organization"
+      },
+      {
+        "name": "Fiona Clarke",
+        "role": "chair"
+      },
+      {
+        "name": "Ahmed Rahman",
+        "role": "treasurer"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-02-11",
+        "label": "meeting date"
+      },
+      {
+        "date": "2026-03-11",
+        "label": "next meeting"
+      }
+    ],
+    "amounts": [
+      {
+        "amount": "2300.00",
+        "currency": "GBP",
+        "label": "agreed budget for the summer fair"
+      }
+    ],
+    "sheet_sha256": "0a214440e9dc130957c6a45ed781f5db1718c15273575b0f7ef3cb34792e4f47",
+    "doc_sha256": "06a782838ca544fc04177499284c6747c601efc97bdbfb5153a0d25e35fc3c38"
+  },
+  "oth_005": {
+    "doc_id": "oth_005",
+    "doc_type": "other",
+    "parties": [
+      {
+        "name": "Karoo Express Couriers",
+        "role": "courier"
+      },
+      {
+        "name": "Thandiwe Nkosi",
+        "role": "recipient"
+      }
+    ],
+    "dates": [
+      {
+        "date": "2026-11-20",
+        "label": "shipped"
+      },
+      {
+        "date": "2026-11-24",
+        "label": "expected delivery"
+      }
+    ],
+    "amounts": [],
+    "sheet_sha256": "59ff081354c6052b71e6d6b65161e343a6bcfd6cafdc3126694041e40270fddc",
+    "doc_sha256": "85ef89785d0909f853ad85f7bbc842fee1437ecc708162d249f5b44ba65786bf"
+  }
+}

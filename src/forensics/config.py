@@ -23,11 +23,24 @@ class LLMSettings(BaseModel):
     concurrency: int = Field(4, ge=1)
     max_retries: int = Field(2, ge=0)
     backoff_base_seconds: float = Field(1.0, ge=0.0)
-    timeout_seconds: float = Field(60.0, gt=0.0)
+    timeout_seconds: float = Field(180.0, gt=0.0)
 
 
 class PipelineSettings(BaseModel):
     max_document_chars: int = Field(20_000, gt=0)
+
+
+class ModelCallSettings(BaseModel):
+    model: str
+    thinking: bool = True
+    temperature: float = Field(0.0, ge=0.0, le=2.0)
+    max_output_tokens: int = Field(4000, gt=0)
+
+
+class GenerationSettings(BaseModel):
+    max_attempts: int = Field(3, ge=1)
+    generator: ModelCallSettings
+    verifier: ModelCallSettings
 
 
 class ModelPrice(BaseModel):
@@ -38,7 +51,9 @@ class ModelPrice(BaseModel):
 
 
 class PathSettings(BaseModel):
+    fact_sheets: Path = Path("data/fact_sheets.yaml")
     documents_dir: Path = Path("data/documents")
+    ground_truth: Path = Path("data/ground_truth.json")
     samples_dir: Path = Path("data/samples")
     traces_dir: Path = Path("traces")
     reports_dir: Path = Path("reports")
@@ -47,6 +62,7 @@ class PathSettings(BaseModel):
 class Settings(BaseModel):
     llm: LLMSettings
     pipeline: PipelineSettings = PipelineSettings()
+    generation: GenerationSettings | None = None  # only the Phase 2 scripts need it
     prices: dict[str, ModelPrice] = {}
     paths: PathSettings = PathSettings()
     deepseek_api_key: SecretStr | None = None

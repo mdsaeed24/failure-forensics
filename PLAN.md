@@ -46,11 +46,12 @@ Failure Forensics/
 ├── data/
 │   ├── samples/               hand-written sample docs for smoke runs (no fact sheet)
 │   ├── fact_sheets.yaml       YOU write the facts per test document (Phase 2)
-│   ├── documents/             generated *.md documents
+│   ├── documents/             generated *.md documents + manifest.json (verification, review state)
 │   ├── ground_truth.json      facts per doc_id, built from fact sheets
 │   └── eval_cases.json        grows from confirmed human flags (Phase 6)
 ├── traces/                    one JSON file per trace (gitignored)
 ├── reports/
+│   ├── document_verification.md  output of generate_documents.py (Phase 2)
 │   └── diagnosis_accuracy.md  output of the Phase 5 evaluation
 │
 ├── scripts/                   thin command-line entry points; logic lives in src/
@@ -64,6 +65,14 @@ Failure Forensics/
 │
 ├── src/forensics/
 │   ├── config.py              typed Settings loaded from config.yaml + .env
+│   ├── textscan.py            find money amounts and dates in text (no LLM); shared by
+│   │                          the Phase 2 verifier and the Phase 4 checks
+│   ├── documents/             Phase 2: ground truth by construction
+│   │   ├── fact_sheets.py     strict fact sheet model + loader
+│   │   ├── generator.py       fact sheet → document, rewritten with feedback until verified
+│   │   ├── verifier.py        deterministic checks, then an independent LLM audit
+│   │   ├── store.py           documents, manifest, ground_truth.json (approved only)
+│   │   └── report.py          verification report + side-by-side review screen
 │   ├── llm/
 │   │   ├── client.py          DeepSeek via openai SDK: JSON mode, Pydantic validation,
 │   │   │                      retry-once on bad JSON, backoff, concurrency limit,

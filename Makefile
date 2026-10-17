@@ -3,7 +3,7 @@
 
 PY ?= python
 
-.PHONY: install test run check-models
+.PHONY: install test run check-models generate review
 
 install:
 	$(PY) -m pip install -e ".[dev]"
@@ -16,3 +16,9 @@ run:
 
 check-models:
 	$(PY) scripts/check_models.py
+
+generate:
+	$(PY) scripts/generate_documents.py --limit 3
+
+review:
+	$(PY) scripts/review_documents.py

@@ -28,6 +28,17 @@ def test_valid_reply_is_parsed_and_costed(make_llm):
     request = fake.requests[0]
     assert request["response_format"] == {"type": "json_object"}
     assert request["max_tokens"] == 4000
+    assert request["temperature"] == 0.0
+    assert "extra_body" not in request  # thinking stays on unless turned off
+
+
+def test_per_call_options_override_config(make_llm):
+    llm, fake = make_llm({"value": 1})
+    asyncio.run(llm.complete_json(system="json", user="?", schema=Answer, max_tokens=99,
+                                  temperature=0.9, thinking=False))
+    request = fake.requests[0]
+    assert (request["max_tokens"], request["temperature"]) == (99, 0.9)
+    assert request["extra_body"] == {"thinking": {"type": "disabled"}}
 
 
 def test_bad_json_gets_one_repair_retry_that_shows_the_error(make_llm):

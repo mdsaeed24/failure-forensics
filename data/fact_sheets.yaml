@@ -1,0 +1,1005 @@
+# Fact sheets: the answer key. Write the facts first; the document is generated from them.
+#
+# Each sheet:
+#   doc_id:    lowercase letters, digits, _ or - (e.g. inv_004). Unique. Becomes the file name.
+#   doc_type:  invoice | receipt | purchase_order | quotation | contract | payment_reminder | other
+#   style:     optional. A sentence steering the writing: sector, country, tone, layout.
+#   parties:   at least one. name (exactly as it should appear) + role (free text).
+#   dates:     optional. date (YYYY-MM-DD) + label (what the date is).
+#   amounts:   optional. amount (number, max 2 decimals) + currency (ISO code) + label.
+#
+# The document will contain these facts and NO other names, dates or money amounts,
+# so list every one you want in it. A total with no line-item prices is fine;
+# if you want a subtotal and tax in the document, list them as amounts too.
+#
+# Supported currencies: AED AUD BRL CAD CHF CNY DKK EUR GBP HKD INR JPY KRW MXN NOK NZD
+# PLN SAR SEK SGD USD ZAR. ("$" in a document always means USD.)
+#
+# Changing a sheet marks its document stale: regenerate it, then review it again.
+#
+# Ideas for a varied set of ~40-50: mix all seven types; several countries and
+# currencies; 1-5 parties; 0-4 dates; 0-4 amounts; a few near-misses between types
+# (quotation vs invoice, reminder vs invoice, receipt vs invoice, PO vs contract).
+
+- doc_id: inv_001
+  doc_type: invoice
+  style: >-
+    US web consultancy billing a retail client for a finished website project; formal,
+    with a short description of the work delivered but no per-line prices.
+  parties:
+    - name: Brightline Digital LLC
+      role: seller
+    - name: Cascade Outdoor Supply
+      role: buyer
+    - name: Marcus Whitfield
+      role: buyer contact
+  dates:
+    - date: 2026-06-15
+      label: invoice date
+    - date: 2026-07-15
+      label: due date
+  amounts:
+    - amount: 18400.00
+      currency: USD
+      label: total due
+
+- doc_id: rem_001
+  doc_type: payment_reminder
+  style: >-
+    Polite but firm UK letter from an accountancy firm chasing an overdue invoice,
+    referring to the original invoice by number.
+  parties:
+    - name: Fenwick & Hale Accountants
+      role: sender
+    - name: Orchard Lane Bakery Ltd
+      role: recipient
+    - name: Sophie Brennan
+      role: sender contact
+  dates:
+    - date: 2026-04-30
+      label: original due date
+    - date: 2026-06-05
+      label: reminder date
+    - date: 2026-06-19
+      label: new payment deadline
+  amounts:
+    - amount: 2350.00
+      currency: GBP
+      label: amount overdue
+    - amount: 40.00
+      currency: GBP
+      label: late payment fee
+
+- doc_id: con_001
+  doc_type: contract
+  style: >-
+    Short cleaning-services agreement between a Dutch logistics company and a
+    contractor; numbered clauses and a signature block.
+  parties:
+    - name: Van Dijk Logistiek B.V.
+      role: client
+    - name: Helder Facility Services
+      role: contractor
+    - name: Annelies de Vries
+      role: signatory for the client
+    - name: Tomasz Nowak
+      role: signatory for the contractor
+  dates:
+    - date: 2026-09-01
+      label: start date
+    - date: 2027-08-31
+      label: end date
+  amounts:
+    - amount: 3200.00
+      currency: EUR
+      label: monthly fee
+    - amount: 500.00
+      currency: EUR
+      label: early termination fee
+
+# ============================================================================
+# Drafted by Claude for review. Edit freely: change anything, delete any sheet.
+# Spread: invoice 10, receipt 6, purchase_order 6, quotation 6, contract 6,
+# payment_reminder 6, other 5. Sheets marked NEAR-MISS look like another type
+# on purpose; doc_type is always the document's real purpose.
+# ============================================================================
+
+# --- invoices ----------------------------------------------------------------
+
+- doc_id: inv_002
+  doc_type: invoice
+  style: >-
+    UK joinery firm invoicing a primary school for fitted classroom shelving; describes
+    the work without per-line prices; shows subtotal, VAT at 20% and total.
+  parties:
+    - name: Kestrel Joinery Ltd
+      role: seller
+    - name: Thornbury Primary School
+      role: buyer
+    - name: Gareth Pryce
+      role: school business manager
+  dates:
+    - date: 2026-02-10
+      label: invoice date
+    - date: 2026-03-12
+      label: due date
+  amounts:
+    - amount: 4850.00
+      currency: GBP
+      label: subtotal
+    - amount: 970.00
+      currency: GBP
+      label: VAT
+    - amount: 5820.00
+      currency: GBP
+      label: total due
+
+- doc_id: inv_003
+  doc_type: invoice
+  style: >-
+    Japanese translation agency invoicing, in English, for translating product manuals;
+    polite and concise; consumption tax at 10%.
+  parties:
+    - name: Hoshino Translation Services
+      role: seller
+    - name: Aoba Medical Devices K.K.
+      role: buyer
+  dates:
+    - date: 2026-05-20
+      label: invoice date
+    - date: 2026-06-30
+      label: due date
+  amounts:
+    - amount: 350000
+      currency: JPY
+      label: subtotal
+    - amount: 35000
+      currency: JPY
+      label: consumption tax
+    - amount: 385000
+      currency: JPY
+      label: total due
+
+- doc_id: inv_004
+  doc_type: invoice
+  style: >-
+    Indian IT company invoicing for a month of cloud hosting and support; mentions GST
+    at 18%; formal layout.
+  parties:
+    - name: Sahyadri Cloud Solutions Pvt Ltd
+      role: seller
+    - name: Kaveri Textiles
+      role: buyer
+    - name: Ananya Iyer
+      role: buyer accounts contact
+  dates:
+    - date: 2026-01-05
+      label: invoice date
+    - date: 2026-01-20
+      label: due date
+  amounts:
+    - amount: 120000.00
+      currency: INR
+      label: subtotal
+    - amount: 21600.00
+      currency: INR
+      label: GST
+    - amount: 141600.00
+      currency: INR
+      label: total due
+
+- doc_id: inv_005
+  doc_type: invoice
+  style: >-
+    Australian electrician's short, friendly invoice to a homeowner after rewiring a
+    kitchen; says the price includes GST.
+  parties:
+    - name: Coastline Electrical
+      role: seller
+    - name: Daniel Brooks
+      role: homeowner
+  dates:
+    - date: 2025-11-18
+      label: invoice date
+    - date: 2025-12-02
+      label: due date
+  amounts:
+    - amount: 1342.00
+      currency: AUD
+      label: total due
+
+- doc_id: inv_006
+  doc_type: invoice
+  style: >-
+    Canadian event-rental company invoicing a golf club after a summer gala; shows the
+    deposit already paid and the balance still owed.
+  parties:
+    - name: Northern Lights Event Rentals
+      role: seller
+    - name: Maple Ridge Golf Club
+      role: buyer
+    - name: Isabelle Tremblay
+      role: buyer contact
+  dates:
+    - date: 2026-08-22
+      label: event date
+    - date: 2026-08-25
+      label: invoice date
+    - date: 2026-09-24
+      label: due date
+  amounts:
+    - amount: 6750.00
+      currency: CAD
+      label: rental charges
+    - amount: 1500.00
+      currency: CAD
+      label: deposit already paid
+    - amount: 5250.00
+      currency: CAD
+      label: balance due
+
+# NEAR-MISS (looks like a quotation): refers to the accepted quote, but bills finished work.
+- doc_id: inv_007
+  doc_type: invoice
+  style: >-
+    German maintenance contractor invoicing for completed machine servicing; says the work
+    was carried out as set out in the accepted quotation and is now being billed.
+  parties:
+    - name: Brandt Industrieservice GmbH
+      role: seller
+    - name: Lindqvist Packaging AB
+      role: buyer
+  dates:
+    - date: 2026-03-02
+      label: date of the accepted quotation
+    - date: 2026-04-14
+      label: work completed
+    - date: 2026-04-16
+      label: invoice date
+    - date: 2026-05-16
+      label: due date
+  amounts:
+    - amount: 12980.00
+      currency: EUR
+      label: total due
+
+- doc_id: inv_008
+  doc_type: invoice
+  style: >-
+    Freelance photographer's email-style invoice to a dental clinic for a staff portrait
+    shoot; casual but professional.
+  parties:
+    - name: Rachel Lim
+      role: seller (freelance photographer)
+    - name: Tanjong Pagar Dental Group
+      role: buyer
+  dates:
+    - date: 2026-07-03
+      label: shoot date
+    - date: 2026-07-06
+      label: invoice date
+    - date: 2026-07-20
+      label: due date
+  amounts:
+    - amount: 2400.00
+      currency: SGD
+      label: total due
+
+- doc_id: inv_009
+  doc_type: invoice
+  style: >-
+    US software company's annual subscription invoice with a small two-row table;
+    formal.
+  parties:
+    - name: Redwood Analytics Inc.
+      role: seller
+    - name: Harborview Credit Union
+      role: buyer
+    - name: Leon Park
+      role: buyer contact
+  dates:
+    - date: 2026-10-01
+      label: invoice date
+    - date: 2026-10-31
+      label: due date
+  amounts:
+    - amount: 9600.00
+      currency: USD
+      label: annual subscription fee
+    - amount: 1200.00
+      currency: USD
+      label: onboarding fee
+    - amount: 10800.00
+      currency: USD
+      label: total due
+
+- doc_id: inv_010
+  doc_type: invoice
+  style: >-
+    Swiss hotel invoicing a firm for a team offsite (rooms and a meeting room); no due
+    date, says payment is due within 30 days.
+  parties:
+    - name: Alpenblick Hotel
+      role: seller
+    - name: Meyer & Partner Treuhand
+      role: buyer
+  dates:
+    - date: 2026-12-14
+      label: invoice date
+  amounts:
+    - amount: 3460.00
+      currency: CHF
+      label: total due
+
+# --- receipts ----------------------------------------------------------------
+
+- doc_id: rct_001
+  doc_type: receipt
+  style: Short till receipt from a garden centre for plants and soil, paid by card; terse layout.
+  parties:
+    - name: Fernwood Garden Center
+      role: seller
+    - name: Olivia Grant
+      role: customer
+  dates:
+    - date: 2026-04-11
+      label: purchase date
+  amounts:
+    - amount: 86.45
+      currency: USD
+      label: amount paid
+
+# NEAR-MISS (looks like an invoice): headed "INVOICE" but stamped paid in full.
+- doc_id: rct_002
+  doc_type: receipt
+  style: >-
+    Plumber's document headed "INVOICE" with a large "PAID IN FULL" stamp; its purpose is
+    to confirm the payment was received by bank transfer and nothing more is owed.
+  parties:
+    - name: Clarke & Dunn Plumbing
+      role: seller
+    - name: Hollybrook Lettings
+      role: payer
+  dates:
+    - date: 2026-02-13
+      label: original invoice date
+    - date: 2026-02-27
+      label: payment received
+  amounts:
+    - amount: 640.00
+      currency: GBP
+      label: amount paid
+
+- doc_id: rct_003
+  doc_type: receipt
+  style: >-
+    Hotel receipt given at check-out, confirming the stay was paid by card; the total
+    includes city tax.
+  parties:
+    - name: Hotel Miramar Lisboa
+      role: hotel
+    - name: Jonas Weber
+      role: guest
+  dates:
+    - date: 2026-05-08
+      label: check-in
+    - date: 2026-05-11
+      label: check-out and payment
+  amounts:
+    - amount: 642.00
+      currency: EUR
+      label: total paid
+    - amount: 12.00
+      currency: EUR
+      label: city tax included in the total
+
+- doc_id: rct_004
+  doc_type: receipt
+  style: >-
+    Indian charity's donation receipt thanking the donor; notes it can be kept for tax
+    purposes.
+  parties:
+    - name: Asha Learning Foundation
+      role: charity
+    - name: Vikram Mehta
+      role: donor
+  dates:
+    - date: 2026-03-15
+      label: donation date
+  amounts:
+    - amount: 25000.00
+      currency: INR
+      label: donation received
+
+- doc_id: rct_005
+  doc_type: receipt
+  style: Very short café receipt for coffee beans and a drink; no customer name.
+  parties:
+    - name: Kumo Coffee Roasters
+      role: seller
+  dates:
+    - date: 2026-09-09
+      label: purchase date
+  amounts:
+    - amount: 1850
+      currency: JPY
+      label: amount paid
+
+- doc_id: rct_006
+  doc_type: receipt
+  style: Simple rent receipt from a private landlord for one month's rent paid in cash.
+  parties:
+    - name: Priyanka Shah
+      role: landlord
+    - name: Ethan Morrison
+      role: tenant
+  dates:
+    - date: 2026-06-01
+      label: payment date
+  amounts:
+    - amount: 2150.00
+      currency: CAD
+      label: rent paid
+
+# --- purchase orders -----------------------------------------------------------
+
+- doc_id: po_001
+  doc_type: purchase_order
+  style: >-
+    Hospital purchase order for disposable gloves and gowns, with quantities and a
+    delivery address.
+  parties:
+    - name: Summit Ridge Hospital
+      role: buyer
+    - name: Clearwater Medical Supplies
+      role: supplier
+    - name: Nadia Hussain
+      role: procurement officer
+  dates:
+    - date: 2026-02-02
+      label: order date
+    - date: 2026-02-16
+      label: deliver by
+  amounts:
+    - amount: 7425.00
+      currency: USD
+      label: order total
+
+- doc_id: po_002
+  doc_type: purchase_order
+  style: Small German bakery ordering flour from its mill; short and email-style.
+  parties:
+    - name: Bäckerei Hofmann
+      role: buyer
+    - name: Mühlenwerk Getreide GmbH
+      role: supplier
+  dates:
+    - date: 2026-10-05
+      label: order date
+    - date: 2026-10-12
+      label: delivery date
+  amounts:
+    - amount: 1980.00
+      currency: EUR
+      label: order total
+
+# NEAR-MISS (looks like a contract): has a terms-and-conditions section, but is one order.
+- doc_id: po_003
+  doc_type: purchase_order
+  style: >-
+    Formal purchase order for steel, followed by a standard terms-and-conditions section
+    (delivery, inspection, rejection of faulty goods); signed by the buyer only.
+  parties:
+    - name: Ashworth Engineering Ltd
+      role: buyer
+    - name: Pennine Steel Stockholders
+      role: supplier
+  dates:
+    - date: 2026-07-07
+      label: order date
+    - date: 2026-07-28
+      label: required delivery date
+  amounts:
+    - amount: 23600.00
+      currency: GBP
+      label: order value
+
+- doc_id: po_004
+  doc_type: purchase_order
+  style: >-
+    Australian local council purchase order for road signs; references a budget code;
+    approved by a named officer.
+  parties:
+    - name: Riverina Shire Council
+      role: buyer
+    - name: Outback Signage Co
+      role: supplier
+    - name: Michelle Walsh
+      role: approving officer
+  dates:
+    - date: 2026-03-23
+      label: order date
+    - date: 2026-04-20
+      label: delivery date
+  amounts:
+    - amount: 8200.00
+      currency: AUD
+      label: subtotal
+    - amount: 820.00
+      currency: AUD
+      label: GST
+    - amount: 9020.00
+      currency: AUD
+      label: order total
+
+- doc_id: po_005
+  doc_type: purchase_order
+  style: >-
+    Tea estate's purchase order for irrigation pumps; asks for delivery within three
+    weeks (no specific delivery date).
+  parties:
+    - name: Nilgiri Tea Estates
+      role: buyer
+    - name: Coimbatore Pump Works
+      role: supplier
+  dates:
+    - date: 2026-08-11
+      label: order date
+  amounts:
+    - amount: 345000.00
+      currency: INR
+      label: order total
+
+# NEAR-MISS (looks like an invoice): lists prices, but it is the buyer placing an order.
+- doc_id: po_006
+  doc_type: purchase_order
+  style: >-
+    School's purchase order for classroom furniture; lists the agreed prices and tells the
+    supplier to send its invoice after delivery.
+  parties:
+    - name: Lakeside Montessori School
+      role: buyer
+    - name: Brightway Furniture
+      role: supplier
+  dates:
+    - date: 2026-01-19
+      label: order date
+    - date: 2026-02-09
+      label: delivery date
+  amounts:
+    - amount: 4310.00
+      currency: USD
+      label: order total
+
+# --- quotations ----------------------------------------------------------------
+
+- doc_id: qte_001
+  doc_type: quotation
+  style: Friendly landscaping quote for redesigning a back garden.
+  parties:
+    - name: Greenleaf Landscapes
+      role: seller
+    - name: Hannah Doyle
+      role: prospective customer
+  dates:
+    - date: 2026-03-30
+      label: quote date
+    - date: 2026-04-29
+      label: valid until
+  amounts:
+    - amount: 3750.00
+      currency: GBP
+      label: quoted total
+
+- doc_id: qte_002
+  doc_type: quotation
+  style: >-
+    Roofing contractor's quote to a homeowners association; a deposit is required only if
+    the quote is accepted.
+  parties:
+    - name: Ironclad Roofing
+      role: seller
+    - name: Pinecrest Homeowners Association
+      role: prospective customer
+    - name: Robert Alvarez
+      role: association contact
+  dates:
+    - date: 2026-05-12
+      label: quote date
+    - date: 2026-06-11
+      label: valid until
+  amounts:
+    - amount: 42500.00
+      currency: USD
+      label: quoted price
+    - amount: 8500.00
+      currency: USD
+      label: deposit on acceptance
+
+# NEAR-MISS (looks like an invoice): headed "Invoice / Proposal", but nothing is owed yet.
+- doc_id: qte_003
+  doc_type: quotation
+  style: >-
+    Event lighting company's document headed "Invoice / Proposal"; it is really a price
+    offer and says nothing is payable until the client accepts and signs.
+  parties:
+    - name: Atelier Lumière
+      role: seller
+    - name: Maison Dubois Événements
+      role: prospective customer
+  dates:
+    - date: 2026-11-03
+      label: issue date
+    - date: 2026-11-17
+      label: offer valid until
+  amounts:
+    - amount: 5600.00
+      currency: EUR
+      label: proposed total
+
+- doc_id: qte_004
+  doc_type: quotation
+  style: IT services quote with a one-time setup fee and a monthly support fee.
+  parties:
+    - name: Merlion IT Services
+      role: seller
+    - name: Orchid Bay Travel
+      role: prospective customer
+  dates:
+    - date: 2026-02-18
+      label: quote date
+    - date: 2026-03-04
+      label: valid until
+  amounts:
+    - amount: 3200.00
+      currency: SGD
+      label: one-time setup fee
+    - amount: 450.00
+      currency: SGD
+      label: monthly support fee
+
+- doc_id: qte_005
+  doc_type: quotation
+  style: >-
+    Brief print-shop quote for 2,000 flyers; says the price holds for 14 days (no expiry
+    date written).
+  parties:
+    - name: Sakura Print Works
+      role: seller
+    - name: Midori Bookshop
+      role: prospective customer
+  dates:
+    - date: 2026-06-02
+      label: quote date
+  amounts:
+    - amount: 128000
+      currency: JPY
+      label: quoted price
+
+# NEAR-MISS (looks like a purchase order): says "send us a purchase order to proceed".
+- doc_id: qte_006
+  doc_type: quotation
+  style: >-
+    Farm equipment dealer's quote for a used tractor, with an estimated delivery date;
+    says that to go ahead the farm should send a purchase order. Nothing is ordered yet.
+  parties:
+    - name: Prairie Ag Equipment
+      role: seller
+    - name: Hendricks Family Farms
+      role: prospective buyer
+  dates:
+    - date: 2026-04-06
+      label: quote date
+    - date: 2026-05-06
+      label: valid until
+    - date: 2026-05-25
+      label: estimated delivery if ordered
+  amounts:
+    - amount: 68900.00
+      currency: CAD
+      label: quoted price
+
+# --- contracts -----------------------------------------------------------------
+
+- doc_id: con_002
+  doc_type: contract
+  style: Mutual non-disclosure agreement with numbered clauses and two signature blocks.
+  parties:
+    - name: Quantra Biotech Inc.
+      role: party
+    - name: Halvorsen Research Partners
+      role: party
+    - name: Elena Petrova
+      role: signatory for Quantra Biotech Inc.
+    - name: Magnus Halvorsen
+      role: signatory for Halvorsen Research Partners
+  dates:
+    - date: 2026-01-12
+      label: effective date
+    - date: 2029-01-12
+      label: confidentiality obligations end
+
+- doc_id: con_003
+  doc_type: contract
+  style: Independent contractor agreement for graphic design work, with an hourly rate and a monthly cap.
+  parties:
+    - name: Northwind Studio LLC
+      role: client
+    - name: Carlos Mendoza
+      role: contractor
+  dates:
+    - date: 2026-03-01
+      label: start date
+    - date: 2026-08-31
+      label: end date
+  amounts:
+    - amount: 85.00
+      currency: USD
+      label: hourly rate
+    - amount: 6000.00
+      currency: USD
+      label: monthly cap
+
+# NEAR-MISS (looks like a quotation): contains a price schedule, but is a signed, binding agreement.
+- doc_id: con_004
+  doc_type: contract
+  style: >-
+    Two-year milk supply agreement that includes an agreed price per crate and a minimum
+    annual purchase; binding terms, signed by both sides.
+  parties:
+    - name: Ridgeway Foods Ltd
+      role: buyer
+    - name: Valewood Dairy
+      role: supplier
+  dates:
+    - date: 2026-04-01
+      label: start date
+    - date: 2028-03-31
+      label: end date
+  amounts:
+    - amount: 18.50
+      currency: GBP
+      label: price per crate
+    - amount: 50000.00
+      currency: GBP
+      label: minimum annual purchase
+
+- doc_id: con_005
+  doc_type: contract
+  style: Commercial lease agreement for a physiotherapy clinic's premises; clauses on rent, deposit and term.
+  parties:
+    - name: Harbourside Property Trust
+      role: landlord
+    - name: Blue Gum Physiotherapy
+      role: tenant
+  dates:
+    - date: 2026-07-01
+      label: lease start
+    - date: 2029-06-30
+      label: lease end
+  amounts:
+    - amount: 5400.00
+      currency: AUD
+      label: monthly rent
+    - amount: 16200.00
+      currency: AUD
+      label: security deposit
+
+- doc_id: con_006
+  doc_type: contract
+  style: Road transport services agreement between a freight carrier and an exporter; priced per container.
+  parties:
+    - name: Deccan Freight Carriers
+      role: carrier
+    - name: Sunrise Agro Exports
+      role: customer
+    - name: Rahul Deshpande
+      role: signatory for the carrier
+    - name: Meera Kulkarni
+      role: signatory for the customer
+  dates:
+    - date: 2026-09-15
+      label: effective date
+    - date: 2027-09-14
+      label: end of term
+  amounts:
+    - amount: 18500.00
+      currency: INR
+      label: rate per container
+
+# --- payment reminders ---------------------------------------------------------
+
+- doc_id: rem_002
+  doc_type: payment_reminder
+  style: Friendly, short first-reminder email from a web host; slightly automated tone.
+  parties:
+    - name: Lumen Web Hosting
+      role: sender
+    - name: Tidewater Kayak Tours
+      role: customer
+  dates:
+    - date: 2026-05-01
+      label: invoice due date
+    - date: 2026-05-08
+      label: reminder date
+  amounts:
+    - amount: 129.00
+      currency: USD
+      label: amount overdue
+
+- doc_id: rem_003
+  doc_type: payment_reminder
+  style: >-
+    Stern final notice from an Austrian electrical contractor warning the matter goes to
+    debt collection if still unpaid.
+  parties:
+    - name: Steiner Elektrotechnik
+      role: sender
+    - name: Gruber Bau GmbH
+      role: customer
+  dates:
+    - date: 2026-02-28
+      label: original due date
+    - date: 2026-04-02
+      label: notice date
+    - date: 2026-04-16
+      label: final deadline
+  amounts:
+    - amount: 7800.00
+      currency: EUR
+      label: amount outstanding
+
+# NEAR-MISS (looks like an invoice): repeats the original invoice, but is chasing it.
+- doc_id: rem_004
+  doc_type: payment_reminder
+  style: >-
+    Reminder that restates the original invoice's details in full in the body, but whose
+    purpose is chasing the missed payment.
+  parties:
+    - name: Wexford Office Interiors
+      role: sender
+    - name: Calder Valley Housing
+      role: customer
+    - name: Joanne Pike
+      role: customer accounts contact
+  dates:
+    - date: 2026-06-03
+      label: original invoice date
+    - date: 2026-07-03
+      label: original due date
+    - date: 2026-07-17
+      label: reminder date
+  amounts:
+    - amount: 11240.00
+      currency: GBP
+      label: amount outstanding
+
+- doc_id: rem_005
+  doc_type: payment_reminder
+  style: Very polite reminder letter in English, in a formal Japanese business style.
+  parties:
+    - name: Fujimoto Architectural Office
+      role: sender
+    - name: Kawaguchi Home Builders
+      role: customer
+  dates:
+    - date: 2026-08-31
+      label: due date
+    - date: 2026-09-14
+      label: reminder date
+  amounts:
+    - amount: 1650000
+      currency: JPY
+      label: amount overdue
+
+- doc_id: rem_006
+  doc_type: payment_reminder
+  style: Second reminder from a caterer noting a partial payment was received; asks for the rest.
+  parties:
+    - name: Raffles Lane Catering
+      role: sender
+    - name: Kallang Sports Club
+      role: customer
+  dates:
+    - date: 2026-10-10
+      label: original due date
+    - date: 2026-10-20
+      label: partial payment received
+    - date: 2026-11-02
+      label: reminder date
+  amounts:
+    - amount: 3600.00
+      currency: SGD
+      label: invoice total
+    - amount: 1000.00
+      currency: SGD
+      label: partial payment received
+    - amount: 2600.00
+      currency: SGD
+      label: remaining balance
+
+# --- other ---------------------------------------------------------------------
+
+- doc_id: oth_001
+  doc_type: other
+  style: Internal memo to all staff announcing a new remote-work policy. No money involved.
+  parties:
+    - name: Granite Peak Insurance
+      role: company
+    - name: Sandra Okonkwo
+      role: HR director
+  dates:
+    - date: 2026-03-02
+      label: memo date
+    - date: 2026-04-01
+      label: policy takes effect
+
+# NEAR-MISS (looks like an invoice): a credit note gives money back instead of asking for it.
+- doc_id: oth_002
+  doc_type: other
+  style: >-
+    Credit note for returned damaged stationery; laid out like an invoice, but says the
+    amount has been credited to the customer's account.
+  parties:
+    - name: Bramble & Co Stationers
+      role: seller
+    - name: Northgate Dental Practice
+      role: customer
+  dates:
+    - date: 2026-05-19
+      label: credit note date
+    - date: 2026-05-02
+      label: original invoice date
+  amounts:
+    - amount: 214.80
+      currency: GBP
+      label: amount credited
+
+# NEAR-MISS (looks like a purchase order): records goods delivered, with no prices.
+- doc_id: oth_003
+  doc_type: other
+  style: >-
+    Delivery note listing quantities of timber delivered to a building site, with a
+    "received by" signature line; no prices.
+  parties:
+    - name: Dutchess Valley Lumber
+      role: supplier
+    - name: Oakhurst Builders
+      role: customer
+  dates:
+    - date: 2026-06-24
+      label: delivery date
+
+- doc_id: oth_004
+  doc_type: other
+  style: Minutes of a residents' association committee meeting, including one budget decision.
+  parties:
+    - name: Westbrook Residents Association
+      role: organization
+    - name: Fiona Clarke
+      role: chair
+    - name: Ahmed Rahman
+      role: treasurer
+  dates:
+    - date: 2026-02-11
+      label: meeting date
+    - date: 2026-03-11
+      label: next meeting
+  amounts:
+    - amount: 2300.00
+      currency: GBP
+      label: agreed budget for the summer fair
+
+- doc_id: oth_005
+  doc_type: other
+  style: Courier's shipping notification email with a tracking number; nothing to pay.
+  parties:
+    - name: Karoo Express Couriers
+      role: courier
+    - name: Thandiwe Nkosi
+      role: recipient
+  dates:
+    - date: 2026-11-20
+      label: shipped
+    - date: 2026-11-24
+      label: expected delivery

@@ -5,7 +5,13 @@ from typing import Any
 import pytest
 
 from fakes import FakeLLM
-from forensics.config import LLMSettings, ModelPrice, Settings
+from forensics.config import (
+    GenerationSettings,
+    LLMSettings,
+    ModelCallSettings,
+    ModelPrice,
+    Settings,
+)
 from forensics.llm.client import LLMClient
 
 
@@ -30,6 +36,11 @@ def settings() -> Settings:
             backoff_base_seconds=0.0,  # no real waiting in tests
         ),
         prices={"fake-flash": ModelPrice(input_per_million=1.0, output_per_million=2.0)},
+        generation=GenerationSettings(
+            max_attempts=3,
+            generator=ModelCallSettings(model="fake-pro", thinking=False, temperature=0.9),
+            verifier=ModelCallSettings(model="fake-pro", max_output_tokens=8000),
+        ),
     )
 
 
