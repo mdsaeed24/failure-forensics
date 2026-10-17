@@ -3,7 +3,7 @@
 
 PY ?= python
 
-.PHONY: install test run check-models generate review
+.PHONY: install test run check-models generate review traces
 
 install:
 	$(PY) -m pip install -e ".[dev]"
@@ -22,3 +22,6 @@ generate:
 
 review:
 	$(PY) scripts/review_documents.py
+
+traces:
+	$(PY) scripts/list_traces.py

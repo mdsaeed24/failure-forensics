@@ -24,6 +24,7 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
+from opentelemetry.trace import Status, StatusCode
 from pydantic import BaseModel
 
 from forensics.config import Settings
@@ -38,6 +39,8 @@ from forensics.pipeline.models import (
     SummarizationInput,
     SummaryOutput,
 )
+from forensics.tracing import spans as attr
+from forensics.tracing.spans import trace_id_of, traced_step, tracer
 
 STEP_ORDER = ("intake", "extraction", "classification", "summarization")
 LLM_STEPS = STEP_ORDER[1:]
@@ -52,6 +55,7 @@ _EXPECTED_FAILURES = (IntakeError, LLMError)
 class PipelineOptions:
     prompt_variants: Mapping[str, str] = field(default_factory=dict)
     hooks: Sequence[Hook] = ()
+    batch_id: str | None = None  # groups the traces of one script run
 
     def __post_init__(self) -> None:
         unknown = set(self.prompt_variants) - set(LLM_STEPS)
@@ -72,6 +76,7 @@ class StepRecord(BaseModel):
 
 class PipelineResult(BaseModel):
     doc_id: str
+    trace_id: str | None = None  # None when tracing isn't configured
     status: Literal["ok", "error"] = "ok"
     failed_step: str | None = None
     error: str | None = None
@@ -104,15 +109,17 @@ async def run_pipeline(
     options = options or PipelineOptions()
     result = PipelineResult(doc_id=doc.doc_id)
 
-    async def step(name: str, fn: Callable[[], Any]) -> Any:
+    async def step(name: str, step_input: BaseModel, fn: Callable[[], Any]) -> Any:
         start = time.perf_counter()
         with record_calls() as calls:
             try:
-                output = fn()
-                if inspect.isawaitable(output):
-                    output = await output
-                for hook in options.hooks:
-                    output = hook(name, output)
+                with traced_step(name, STEP_ORDER.index(name) + 1, step_input) as span:
+                    output = fn()
+                    if inspect.isawaitable(output):
+                        output = await output
+                    for hook in options.hooks:
+                        output = hook(name, output)
+                    span.set_output(output)
             except _EXPECTED_FAILURES as exc:
                 message = f"{type(exc).__name__}: {exc}"
                 result.steps.append(
@@ -126,25 +133,38 @@ async def run_pipeline(
         )
         return output
 
-    try:
-        result.intake = await step("intake", lambda: intake.run(doc, settings.pipeline))
-        result.extraction = await step(
-            "extraction",
-            lambda: extraction.run(result.intake, llm, options.variant("extraction")),
-        )
-        result.classification = await step(
-            "classification",
-            lambda: classification.run(result.intake, llm, options.variant("classification")),
-        )
-        summary_input = SummarizationInput(
-            extraction=result.extraction, classification=result.classification
-        )
-        result.summary = await step(
-            "summarization",
-            lambda: summarization.run(summary_input, llm, options.variant("summarization")),
-        )
-    except _StepFailed:
-        pass
+    # Deliberately not recorded on the trace: prompt variants and hooks. They are how
+    # faults get planted (Phase 5), and the analyzer must not be able to see them.
+    root_attributes = {attr.DOC_ID: doc.doc_id}
+    if options.batch_id:
+        root_attributes[attr.BATCH_ID] = options.batch_id
+    with tracer.start_as_current_span("pipeline", attributes=root_attributes) as root:
+        result.trace_id = trace_id_of(root)
+        try:
+            result.intake = await step(
+                "intake", doc, lambda: intake.run(doc, settings.pipeline)
+            )
+            result.extraction = await step(
+                "extraction", result.intake,
+                lambda: extraction.run(result.intake, llm, options.variant("extraction")),
+            )
+            result.classification = await step(
+                "classification", result.intake,
+                lambda: classification.run(result.intake, llm, options.variant("classification")),
+            )
+            summary_input = SummarizationInput(
+                extraction=result.extraction, classification=result.classification
+            )
+            result.summary = await step(
+                "summarization", summary_input,
+                lambda: summarization.run(summary_input, llm, options.variant("summarization")),
+            )
+        except _StepFailed:
+            pass
+        root.set_attribute(attr.STATUS, result.status)
+        if result.status == "error":
+            root.set_attributes({attr.FAILED_STEP: result.failed_step, attr.ERROR: result.error})
+            root.set_status(Status(StatusCode.ERROR, result.error))
     return result
 
 

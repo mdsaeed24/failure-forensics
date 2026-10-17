@@ -15,6 +15,7 @@ What every call guarantees:
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import random
 import time
@@ -29,6 +30,8 @@ from pydantic import BaseModel, ValidationError
 
 from forensics.config import Settings
 from forensics.llm.cost import cost_usd
+from forensics.tracing import spans as attr
+from forensics.tracing.spans import tracer
 
 log = logging.getLogger(__name__)
 
@@ -143,32 +146,34 @@ class LLMClient:
             {"role": "user", "content": user},
         ]
         start = time.perf_counter()
-        try:
-            text = await self._create(messages, call, options)
+        with tracer.start_as_current_span(f"chat {call.model}") as span:
             try:
-                parsed = _parse(text, schema)
-            except (ValueError, ValidationError) as first_error:
-                log.warning("%s returned invalid output, retrying once: %s", call.model, first_error)
-                call.repaired = True
-                messages += [
-                    {"role": "assistant", "content": text},
-                    {"role": "user", "content": _repair_message(first_error)},
-                ]
                 text = await self._create(messages, call, options)
                 try:
                     parsed = _parse(text, schema)
-                except (ValueError, ValidationError) as second_error:
-                    raise LLMOutputError(
-                        f"{call.model} output still invalid after repair retry: {second_error}", call
-                    ) from second_error
-        finally:
-            call.latency_ms = (time.perf_counter() - start) * 1000
-            call.cost_usd = cost_usd(
-                call.model, call.prompt_tokens, call.completion_tokens, self._settings.prices
-            )
-            recorder = _recorder.get()
-            if recorder is not None:
-                recorder.append(call)
+                except (ValueError, ValidationError) as first_error:
+                    log.warning("%s returned invalid output, retrying once: %s", call.model, first_error)
+                    call.repaired = True
+                    messages += [
+                        {"role": "assistant", "content": text},
+                        {"role": "user", "content": _repair_message(first_error)},
+                    ]
+                    text = await self._create(messages, call, options)
+                    try:
+                        parsed = _parse(text, schema)
+                    except (ValueError, ValidationError) as second_error:
+                        raise LLMOutputError(
+                            f"{call.model} output still invalid after repair retry: {second_error}", call
+                        ) from second_error
+            finally:
+                call.latency_ms = (time.perf_counter() - start) * 1000
+                call.cost_usd = cost_usd(
+                    call.model, call.prompt_tokens, call.completion_tokens, self._settings.prices
+                )
+                recorder = _recorder.get()
+                if recorder is not None:
+                    recorder.append(call)
+                _record_on_span(span, call, messages, options, schema, thinking)
         return LLMResult(parsed=parsed, call=call)
 
     async def _create(
@@ -224,6 +229,36 @@ class LLMClient:
         if call.truncated:
             log.warning("%s hit its max_tokens cap; output is truncated", call.model)
         return call.raw_output
+
+
+def _record_on_span(
+    span: Any, call: LLMCall, messages: list[dict[str, str]], options: dict[str, Any],
+    schema: type[BaseModel], thinking: bool,
+) -> None:
+    """Everything about the call goes on its span, failed calls included: the raw output
+    and reasoning of a bad reply are the best evidence of why a step failed."""
+    values = {
+        attr.GENAI_OPERATION: "chat",
+        attr.GENAI_PROVIDER: "deepseek",
+        attr.GENAI_REQUEST_MODEL: call.model,
+        attr.GENAI_MAX_TOKENS: options["max_tokens"],
+        attr.GENAI_TEMPERATURE: options["temperature"],
+        attr.GENAI_INPUT_TOKENS: call.prompt_tokens,
+        attr.GENAI_OUTPUT_TOKENS: call.completion_tokens,
+        attr.GENAI_FINISH_REASONS: [call.finish_reason] if call.finish_reason else [],
+        attr.LLM_SCHEMA: schema.__name__,
+        attr.LLM_THINKING: thinking,
+        attr.LLM_ATTEMPTS: call.attempts,
+        attr.LLM_REASONING_TOKENS: call.reasoning_tokens,
+        attr.LLM_TRUNCATED: call.truncated,
+        attr.LLM_REPAIRED: call.repaired,
+        attr.LLM_MESSAGES: json.dumps(messages, ensure_ascii=False),
+        attr.LLM_RAW_OUTPUT: call.raw_output,
+        attr.LLM_REASONING: call.reasoning,
+    }
+    if call.cost_usd is not None:  # span attributes can't be None; absent means unknown
+        values[attr.LLM_COST] = call.cost_usd
+    span.set_attributes(values)
 
 
 def _parse(text: str, schema: type[T]) -> T:

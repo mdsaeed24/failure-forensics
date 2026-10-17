@@ -4,6 +4,9 @@
     python scripts/run_pipeline.py                 # first document in data/documents
     python scripts/run_pipeline.py --limit 5       # first 5 documents
     python scripts/run_pipeline.py --all           # every document (costs money)
+
+Every run is traced to traces/ (one JSON file per document, plus traces/index.sqlite).
+Browse them with: python scripts/list_traces.py
 """
 
 from __future__ import annotations
@@ -13,12 +16,15 @@ import asyncio
 import json
 import logging
 import sys
+import uuid
 from pathlib import Path
 
-from forensics.config import Settings, load_settings
+from forensics.config import PROJECT_ROOT, Settings, load_settings
 from forensics.llm.client import LLMClient
 from forensics.pipeline.models import RawDocument
-from forensics.pipeline.runner import PipelineResult, StepRecord, run_pipeline
+from forensics.pipeline.runner import PipelineOptions, PipelineResult, StepRecord, run_pipeline
+from forensics.tracing.setup import configure_tracing
+from forensics.tracing.store import TraceStore
 
 
 def main() -> int:
@@ -49,19 +55,29 @@ def main() -> int:
     except RuntimeError as exc:
         print(exc, file=sys.stderr)
         return 1
-    results = asyncio.run(_run_all(paths, llm, settings))
+    provider = configure_tracing(settings)
+    batch_id = uuid.uuid4().hex[:12]
+    try:
+        results = asyncio.run(_run_all(paths, llm, settings, PipelineOptions(batch_id=batch_id)))
+    finally:
+        provider.shutdown()
+    store = TraceStore(settings.resolve(settings.paths.traces_dir))
     for result in results:
         _print_result(result)
+        if result.trace_id:
+            print(f"Trace: {store.path_of(result.trace_id).relative_to(PROJECT_ROOT)}")
     if len(results) > 1:
         ok = sum(r.status == "ok" for r in results)
         print(f"\n{ok}/{len(results)} documents completed. Total cost: {_cost(_sum_cost(results))}")
+        print(f"Batch {batch_id}: python scripts/list_traces.py --batch {batch_id}")
     return 0 if all(r.status == "ok" for r in results) else 2
 
 
-async def _run_all(paths: list[Path], llm: LLMClient, settings: Settings) -> list[PipelineResult]:
+async def _run_all(paths: list[Path], llm: LLMClient, settings: Settings,
+                   options: PipelineOptions) -> list[PipelineResult]:
     docs = [RawDocument.from_file(p) for p in paths]
     # Documents run concurrently; the client's semaphore caps requests in flight.
-    return await asyncio.gather(*(run_pipeline(d, llm, settings) for d in docs))
+    return await asyncio.gather(*(run_pipeline(d, llm, settings, options) for d in docs))
 
 
 def _print_result(result: PipelineResult) -> None:

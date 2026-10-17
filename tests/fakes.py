@@ -31,6 +31,8 @@ class FakeLLM:
     - a dict (sent as JSON), or a str (sent as-is, e.g. broken JSON)
     - a FakeReply, for control over finish_reason, token counts and delay
     - an Exception, which is raised as if the API had failed
+    - a callable, given the request kwargs, returning any of the above (for concurrent
+      callers whose order isn't fixed)
     """
 
     def __init__(self, replies: list[Any]) -> None:
@@ -45,6 +47,8 @@ class FakeLLM:
         if not self.replies:
             raise AssertionError("FakeLLM ran out of scripted replies")
         item = self.replies.pop(0)
+        if callable(item):
+            item = item(kwargs)
         if isinstance(item, BaseException):
             raise item
         reply = item if isinstance(item, FakeReply) else FakeReply(item)
@@ -100,3 +104,13 @@ SUMMARY = {
     "summary": "Harbor Lane Printing Ltd. invoiced Meridian Health Clinics £1,028.40, due 2 April 2026.",
     "confidence": 5,
 }
+
+
+def pipeline_reply(request: dict[str, Any]) -> dict[str, Any]:
+    """The right valid reply for whichever pipeline step is asking."""
+    system = request["messages"][0]["content"]
+    if system.startswith("You extract"):
+        return EXTRACTION
+    if system.startswith("You classify"):
+        return CLASSIFICATION
+    return SUMMARY

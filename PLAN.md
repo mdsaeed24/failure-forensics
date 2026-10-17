@@ -57,6 +57,7 @@ Failure Forensics/
 ├── scripts/                   thin command-line entry points; logic lives in src/
 │   ├── run_pipeline.py        run docs through the pipeline (--limit)
 │   ├── check_models.py        verify config.yaml model IDs against DeepSeek /models
+│   ├── list_traces.py         browse traces: list, filter, per-step signals (Phase 3)
 │   ├── generate_documents.py  fact sheet → document → automatic fact verification
 │   ├── review_documents.py    side-by-side doc vs fact sheet, approve/reject
 │   ├── evaluate_diagnosis.py  clean + injected runs → accuracy report
@@ -89,7 +90,9 @@ Failure Forensics/
 │   │                          between steps where faults can be injected
 │   ├── tracing/
 │   │   ├── setup.py           OpenTelemetry TracerProvider wiring
-│   │   ├── decorator.py       @traced_step("extraction")
+│   │   ├── spans.py           traced_step(...) context manager + attribute names (gen_ai.* /
+│   │   │                      forensics.*); a context manager, not a decorator, so the
+│   │   │                      runner's hooks run inside the step's span
 │   │   ├── exporter.py        custom SpanExporter → JSON file + SQLite index
 │   │   └── store.py           read/query traces from SQLite + JSON
 │   ├── checks/                deterministic checks, no LLM
